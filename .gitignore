@@ -1,0 +1,8 @@
+.phohomenegap/
+.swp/
+*.swp
+*.swo
+gen/
+bin/
+*.keystore
+.DS_Store

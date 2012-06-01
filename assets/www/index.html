@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+     <head>
+          <meta name="viewport" content="width=device-width; height=device-height; user-scalable=no" />
+          <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+          <title>Marina Locator</title>
+          <link rel="stylesheet" href="/master.css" type="text/css" media="screen" />
+          <script type="text/javascript" src="lib/cordova-1.7.0.js"></script>
+          <script type="text/javascript">
+               function loader() {
+                    var state = document.readyState;
+                    if (state == 'loaded' || state == 'complete') {
+                         run();
+                    } else {
+                         if (navigator.userAgent.indexOf('Browzr') > -1) {
+                              setTimeout(run, 250);
+                         } else {
+                            document.addEventListener('deviceready',run,false);
+                         }
+                    }
+               }
+               function run() {
+                    var win = function(position) {                          // Grab coordinates object from the Position object passed into success callback.
+                       console.log('in win');
+                         var coords = position.coords;
+                         console.log('coords: ' + coords.latitude + ',' + coords.longitude);
+                         // Call for static google maps data - make sure you use your own Google Maps API key!
+                         //https://maps.google.com/maps/ms?msa=0&msid=217422876588338854635.0004c133df227ae5aa19c&ie=UTF8&ll=47.680763,-122.404547&spn=0.065,0.065&t=m&output=embed
+                         var url = "https://maps.google.com/maps/ms?msa=0&msid=217422876588338854635.0004c133df227ae5aa19c&ie=UTF8&ll=" + coords.latitude + "," + coords.longitude + "&spn=0.065,0.065&t=m&output=embed";
+                         document.getElementById('map').setAttribute('src',url);
+                    };
+                    var fail = function(e) {
+                         alert('Can\'t retrieve position.\nError: ' + e);
+                    };
+                    console.log('show location');
+                    navigator.geolocation.getCurrentPosition(win, fail);
+               } 
+          </script>
+     </head>
+     <body onload="loader();">
+       <iframe id='map' width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src=""></iframe>
+     </body>
+</html>

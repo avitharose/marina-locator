@@ -1,0 +1,39 @@
+body {
+}
+
+body .ui-li .ui-li-desc {
+  white-space: normal;
+  padding-left: 10px;
+}
+
+body .ui-li .ui-li-heading {
+  white-space: normal;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+#carousel-pages {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.dot {
+  display: inline-block;
+  width:12px;height:12px;
+  border-radius:6px;
+  background-color:#8999A6;
+}
+
+.dot-current {
+  background-color: white;
+}
+
+.spacer {
+  padding-left: 0.5em;
+}
+
+.btn-refresh {
+  float: right;
+}
