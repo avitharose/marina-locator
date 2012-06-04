@@ -31,34 +31,32 @@
       }
 
       function run() {
-        var myOptions = {
-          zoom: 12,
-          center: new google.maps.LatLng(47.677871,-122.411041),
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        map = new google.maps.Map(document.getElementById('map_canvas'),
-            myOptions);
-      }
-
-      function runOrig() {
-        var win = function(position) {
-          console.log('in win');
+        var defaultPosition = {coords: {latitude: 47.677871, longitude: -122.411041}};
+        var success = function(position) {
           var coords = position.coords;
-          console.log('coords: ' + coords.latitude + ',' + coords.longitude);
-          var url = "https://maps.google.com/maps/ms?msa=0&msid=217422876588338854635.0004c133df227ae5aa19c&ie=UTF8&ll=" + coords.latitude + "," + coords.longitude + "&spn=0.065,0.065&t=m&output=embed";
-          document.getElementById('map_canvas').setAttribute('src',url);
-        };
+          var myOptions = {
+            zoom: 12,
+            center: new google.maps.LatLng(coords.latitude, coords.longitude),
+            mapTypeId: google.maps.MapTypeId.TERRAIN
+          };
+          var map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+          var marinaLayerOptions = {
+            preserveViewport: true
+          };
+          var marinaLayer = new google.maps.KmlLayer('https://maps.google.com/maps/ms?ie=UTF8&authuser=0&msa=0&output=kml&msid=217422876588338854635.0004c133df227ae5aa19c', marinaLayerOptions);
+          marinaLayer.setMap(map);
+        }
+
         var fail = function(e) {
-          win({coords: {latitude: '47.678666', longitude: '-122.40546'}});
+          success(defaultPosition);
         };
-        console.log('show location');
+
         try {
           navigator.geolocation.getCurrentPosition(win, fail);
         } catch (err) {
-          console.log('error: ' + err);
-          win({coords: {latitude: '47.678666', longitude: '-122.40546'}});
+          success(defaultPosition);
         }
-      } 
+      }
 
       google.maps.event.addDomListener(window, 'load', loader);
     </script>
