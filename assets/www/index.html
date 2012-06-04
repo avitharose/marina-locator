@@ -20,20 +20,24 @@
                     }
                }
                function run() {
-                    var win = function(position) {                          // Grab coordinates object from the Position object passed into success callback.
+                    var win = function(position) {
                        console.log('in win');
                          var coords = position.coords;
                          console.log('coords: ' + coords.latitude + ',' + coords.longitude);
-                         // Call for static google maps data - make sure you use your own Google Maps API key!
-                         //https://maps.google.com/maps/ms?msa=0&msid=217422876588338854635.0004c133df227ae5aa19c&ie=UTF8&ll=47.680763,-122.404547&spn=0.065,0.065&t=m&output=embed
                          var url = "https://maps.google.com/maps/ms?msa=0&msid=217422876588338854635.0004c133df227ae5aa19c&ie=UTF8&ll=" + coords.latitude + "," + coords.longitude + "&spn=0.065,0.065&t=m&output=embed";
                          document.getElementById('map').setAttribute('src',url);
                     };
                     var fail = function(e) {
-                         alert('Can\'t retrieve position.\nError: ' + e);
+                      //   alert('Can\'t retrieve position.\nError: ' + e);
+                      win({coords: {latitude: '47.678666', longitude: '-122.40546'}});
                     };
                     console.log('show location');
-                    navigator.geolocation.getCurrentPosition(win, fail);
+                    try {
+                      navigator.geolocation.getCurrentPosition(win, fail);
+                    } catch (err) {
+                      console.log('error: ' + err);
+                      win({coords: {latitude: '47.678666', longitude: '-122.40546'}});
+                    }
                } 
           </script>
      </head>
