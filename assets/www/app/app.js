@@ -2,8 +2,6 @@ var marina = {};
 
 $(function() {
 
-	var map;
-
 	function loader() {
 		console.log('loader');
 		var state = document.readyState;
@@ -42,14 +40,14 @@ $(function() {
 				center: latlng,
 				mapTypeId: google.maps.MapTypeId.TERRAIN
 			};
-			var map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+			marina.map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 			var marinaLayerOptions = {
 				preserveViewport: true
 			};
 			var marinaLayer = new google.maps.KmlLayer('https://maps.google.com/maps/ms?ie=UTF8&authuser=0&msa=0&output=kml&msid=217422876588338854635.0004c133df227ae5aa19c', marinaLayerOptions);
-			marinaLayer.setMap(map);
+			marinaLayer.setMap(marina.map);
 
-			addLocationMarkerTo(map, latlng);
+			addLocationMarkerTo(marina.map, latlng);
 		};
 
 		var fail = function(e) {
