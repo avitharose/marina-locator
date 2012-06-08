@@ -2,20 +2,6 @@ var marina = {};
 
 $(function() {
 
-	function loader() {
-		console.log('loader');
-		var state = document.readyState;
-		if (state == 'loaded' || state == 'complete') {
-			run();
-		} else {
-			if (navigator.userAgent.indexOf('Browzr') > - 1) {
-				setTimeout(run, 250);
-			} else {
-				document.addEventListener('deviceready', run, false);
-			}
-		}
-	}
-
 	function addLocationMarkerTo(map, latlng) {
 		var marker = new google.maps.Marker({
 			position: latlng,
@@ -25,7 +11,7 @@ $(function() {
 		});
 	}
 
-	function run() {
+	function deviceReady() {
 		var defaultPosition = {
 			coords: {
 				latitude: 47.688157,
@@ -51,18 +37,38 @@ $(function() {
 		};
 
 		var fail = function(e) {
-			success(defaultPosition);
+      console.log(e);
+      if (marina.util.isConnected()) {
+			  success(defaultPosition);
+      } else {
+        $('#map_canvas').html('No connection!');
+      }
 		};
 
-		try {
-			navigator.geolocation.getCurrentPosition(win, fail);
-		} catch(err) {
-			success(defaultPosition);
-		}
+    var connected = function() {
+      console.log('connected');
+      try {
+		    navigator.geolocation.getCurrentPosition(success, fail);
+      } catch(err) {
+        console.log(err);
+        success(defaultPosition);
+      }
+    };
+
+    var disconnected = function() {
+      $('#map_canvas').html('No connection!');
+    };
+
+    if (marina.util.isConnected()) {
+		  connected();
+	    document.addEventListener("online", connected, false);
+    } else {
+      $('#map_canvas').html('No connection!');
+	    document.addEventListener("offline", disconnected, false);
+    }
 	}
 
-	//document.addEventListener("deviceready", onDeviceReady, false);
-	google.maps.event.addDomListener(window, 'load', loader);
+	document.addEventListener("deviceready", deviceReady, false);
 
 });
 

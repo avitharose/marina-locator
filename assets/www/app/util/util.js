@@ -1,4 +1,4 @@
-wineNewsApp.util = (function() {
+marina.util = (function() {
 	var util = {},
 	states = null;
 

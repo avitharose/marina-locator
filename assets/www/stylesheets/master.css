@@ -1,5 +1,8 @@
-body {
-}
+html, body, #map_canvas {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+ }
 
 body .ui-li .ui-li-desc {
   white-space: normal;
