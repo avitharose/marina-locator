@@ -13,14 +13,7 @@ $(function() {
 		var success = function(position) {
 			var coords = position.coords;
 			var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
-			var myOptions = {
-				zoom: 12,
-				center: latlng,
-				mapTypeId: google.maps.MapTypeId.TERRAIN
-			};
-			marina.map = marina.googleMap(myOptions);
-      marina.map.addMarinaLayer();
-			marina.map.addLocationMarkerTo({latlng: latlng});
+			marina.map = marina.googleMap({latlng: latlng});
 		};
 
 		var fail = function(e) {

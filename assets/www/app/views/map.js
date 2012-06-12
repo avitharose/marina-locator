@@ -1,6 +1,11 @@
-marina.googleMap = function(mapOptions) {
+marina.googleMap = function(options) {
   var map = {};
 
+  var mapOptions = {
+    zoom: 12,
+    center: options.latlng,
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+  };
   map.googleMap = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 
   map.positionChanged = function(position) {
@@ -24,8 +29,11 @@ marina.googleMap = function(mapOptions) {
       preserveViewport: true
     };
     var marinaLayer = new google.maps.KmlLayer('https://maps.google.com/maps/ms?ie=UTF8&authuser=0&msa=0&output=kml&msid=217422876588338854635.0004c133df227ae5aa19c', marinaLayerOptions);
-    marinaLayer.setMap(marina.map.googleMap);
+    marinaLayer.setMap(map.googleMap);
   };
+
+  map.addMarinaLayer();
+  map.addLocationMarkerTo({latlng: options.latlng});
 
   return map;
 };
