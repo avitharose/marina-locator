@@ -25,15 +25,18 @@ marina.googleMap = function(options) {
     marinaLayer.setMap(googleMap);
   };
 
-  var latlng = new google.maps.LatLng(options.coords.latitude, options.coords.longitude);
-  var mapOptions = {
-    zoom: 12,
-    center: latlng,
-    mapTypeId: google.maps.MapTypeId.TERRAIN
+  var createMap = function() {
+    var latlng = new google.maps.LatLng(options.coords.latitude, options.coords.longitude);
+    var mapOptions = {
+      zoom: 12,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.TERRAIN
+    };
+    googleMap = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+    map.addMarinaLayer();
+    map.addLocationMarkerTo({latlng: latlng});
+    return map;
   };
-  googleMap = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-  map.addMarinaLayer();
-  map.addLocationMarkerTo({latlng: latlng});
 
-  return map;
+  return createMap();
 };
