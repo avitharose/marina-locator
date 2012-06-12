@@ -35,7 +35,7 @@ $(function() {
 			var marinaLayer = new google.maps.KmlLayer('https://maps.google.com/maps/ms?ie=UTF8&authuser=0&msa=0&output=kml&msid=217422876588338854635.0004c133df227ae5aa19c', marinaLayerOptions);
 			marinaLayer.setMap(marina.map.googleMap);
 
-			addLocationMarkerTo(marina.map.googleMap, latlng);
+			marina.map.addLocationMarkerTo({latlng: latlng});
 		};
 
 		var fail = function(e) {
