@@ -2,16 +2,6 @@ var marina = {};
 
 $(function() {
 
-	function addLocationMarkerTo(map, latlng) {
-		marina.currentLocation = new google.maps.Marker({
-			position: latlng,
-			map: map,
-			icon: 'images/sailboat.png',
-			title: "Your location"
-		});
-    navigator.geolocation.watchPosition(positionChanged);
-	}
-
 	function deviceReady() {
 		var defaultPosition = {
 			coords: {
@@ -29,12 +19,7 @@ $(function() {
 				mapTypeId: google.maps.MapTypeId.TERRAIN
 			};
 			marina.map = marina.googleMap(myOptions);
-			var marinaLayerOptions = {
-				preserveViewport: true
-			};
-			var marinaLayer = new google.maps.KmlLayer('https://maps.google.com/maps/ms?ie=UTF8&authuser=0&msa=0&output=kml&msid=217422876588338854635.0004c133df227ae5aa19c', marinaLayerOptions);
-			marinaLayer.setMap(marina.map.googleMap);
-
+      marina.map.addMarinaLayer();
 			marina.map.addLocationMarkerTo({latlng: latlng});
 		};
 
@@ -59,12 +44,6 @@ $(function() {
 
     var disconnected = function() {
       $('#map_canvas').html('No connection!');
-    };
-
-    var positionChanged = function(position) {
-			var coords = position.coords;
-			var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
-      marina.currentLocation.setPosition(latlng);
     };
 
     if (marina.util.isConnected()) {
