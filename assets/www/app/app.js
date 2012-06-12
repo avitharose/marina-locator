@@ -12,8 +12,7 @@ $(function() {
 
 		var success = function(position) {
 			var coords = position.coords;
-			var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
-			marina.map = marina.googleMap({latlng: latlng});
+			marina.map = marina.googleMap({coords: position.coords});
 		};
 
 		var fail = function(e) {

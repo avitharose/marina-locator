@@ -1,9 +1,10 @@
 marina.googleMap = function(options) {
   var map = {};
 
+  var latlng = new google.maps.LatLng(options.coords.latitude, options.coords.longitude);
   var mapOptions = {
     zoom: 12,
-    center: options.latlng,
+    center: latlng,
     mapTypeId: google.maps.MapTypeId.TERRAIN
   };
   map.googleMap = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
@@ -33,7 +34,7 @@ marina.googleMap = function(options) {
   };
 
   map.addMarinaLayer();
-  map.addLocationMarkerTo({latlng: options.latlng});
+  map.addLocationMarkerTo({latlng: latlng});
 
   return map;
 };
