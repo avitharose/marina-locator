@@ -2,9 +2,11 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  background-color: #696969;
  }
 
 #header {
+  color: #f8f8ff;
   margin: 0;
   padding: 0;
   height: 5%;
