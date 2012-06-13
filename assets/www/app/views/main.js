@@ -6,7 +6,7 @@ marina.views.main = function() {
     }
   };
 
-  var connected = {
+  var connectedView = {
     geoSuccess: function(position) {
       marina.map = marina.googleMap({coords: position.coords});
     }, 
@@ -21,12 +21,12 @@ marina.views.main = function() {
       try {
         navigator.geolocation.getCurrentPosition(this.geoSuccess, this.getFail);
       } catch(err) {
-        connected.geoFail(err);
+        connectedView.geoFail(err);
       }
     }
   };
 
-  var disconnected = {
+  var disconnectedView = {
     show: function() {
       console.log('disconnected');
       $('#map_canvas').html('No connection!');
@@ -40,9 +40,9 @@ marina.views.main = function() {
     }, false);
     return function() {
       if (marina.util.isConnected()) {
-        return connected;
+        return connectedView;
       }
-      return disconnected;
+      return disconnectedView;
     };
   }();
 
