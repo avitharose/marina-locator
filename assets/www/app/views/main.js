@@ -34,6 +34,7 @@ marina.views.main = function() {
       console.log('disconnected');
       $('#map_canvas').html('No connection!');
     };
+    return view;
   }();
 
   return function() {
