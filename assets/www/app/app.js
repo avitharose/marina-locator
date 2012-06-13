@@ -4,7 +4,8 @@ marina.views = {};
 $(function() {
 
 	function deviceReady() {
-    marina.views.main.show();
+    console.log('device ready, show main view');
+    marina.views.main().show();
 	}
 
 	document.addEventListener("deviceready", deviceReady, false);

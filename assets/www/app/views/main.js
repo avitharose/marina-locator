@@ -1,54 +1,54 @@
 marina.views.main = function() {
-  var view = {}, defaultPosition = {
+  var defaultPosition = {
     coords: {
       latitude: 47.688157,
       longitude: - 122.425461
     }
   };
 
-  var connectedView = {
-    geoSuccess: function(position) {
-      marina.map = marina.googleMap({coords: position.coords});
-    }, 
-    
-    geoFail: function(e) {
-      console.log(e);
-      this.geoSuccess(defaultPosition);
-    },
+  var connectedView = function() {
 
-    show: function() {
+    var view = {}; 
+    var geoSuccess = function(position) {
+      marina.map = marina.googleMap({coords: position.coords});
+    };
+    var geoFail = function(e) {
+      console.log('Failed to get geolocation, using default location' + e);
+      geoSuccess(defaultPosition);
+    };
+
+    view.show = function() {
       console.log('connected');
       try {
-        navigator.geolocation.getCurrentPosition(this.geoSuccess, this.getFail);
+        navigator.geolocation.getCurrentPosition(geoSuccess, geoFail);
       } catch(err) {
-        connectedView.geoFail(err);
+        geoFail(err);
       }
-    }
-  };
+    };
+    return view;
+  }();
 
-  var disconnectedView = {
-    show: function() {
+  var disconnectedView = function() {
+    var view = {};
+    view.show = function() {
       console.log('disconnected');
       $('#map_canvas').html('No connection!');
-    }
-  };
+    };
+  }();
 
-  var state = function() {
-    document.addEventListener("deviceready", function() {
-      document.addEventListener("online", state().show, false);
-      document.addEventListener("offline", state().show, false);
-    }, false);
+  return function() {
+//    document.addEventListener("deviceready", function() {
+//      console.log('adding main view envent listerners for state');
+//      document.addEventListener("online", state().show, false);
+//      document.addEventListener("offline", state().show, false);
+//    }, false);
+    console.log('return main view state function');
     return function() {
+      console.log('main state function');
       if (marina.util.isConnected()) {
         return connectedView;
       }
       return disconnectedView;
     };
   }();
-
-  view.show = function() {
-    state().show();
-  };
-
-  return view;
 }();
