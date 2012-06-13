@@ -2,8 +2,8 @@ var appCallback, $ = function(func) {
   appCallback = func;
 };
 
-  var document = function() {
-  };
+var document = function() {
+};
 
 describe("Player", function() {
 
