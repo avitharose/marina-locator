@@ -37,13 +37,11 @@ marina.views.main = function() {
   }();
 
   return function() {
-//    document.addEventListener("deviceready", function() {
-//      console.log('adding main view envent listerners for state');
-//      document.addEventListener("online", state().show, false);
-//      document.addEventListener("offline", state().show, false);
-//    }, false);
     console.log('return main view state function');
     return function() {
+     console.log('adding main view envent listerners for state');
+     document.addEventListener("online", connectedView.show, false);
+     document.addEventListener("offline", disconnectedView.show, false);
       console.log('main state function');
       if (marina.util.isConnected()) {
         return connectedView;
