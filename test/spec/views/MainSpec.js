@@ -1,24 +1,56 @@
+var navigator = {}, coords;
+
 describe('Main view', function() {
+  var div = {}, mapCanvas = '#map_canvas', $arg;
+
+  beforeEach(function() {
+    marina.util = function() {
+      var util = {};
+      util.connectedState = false;
+      util.isConnected = function() {
+        return util.connectedState;
+      };
+      return util;
+    }();
+
+    div.html = jasmine.createSpy();
+    $ = function(id) {
+      $arg = id;
+      return div;
+    };
+  });
 
   it('should exists', function() {
     expect(marina.views.main).toBeDefined();
   });
 
-  describe('disconnected view', function() {
+  describe('connected view', function() {
 
-    var div = {}, mapCanvas = '#map_canvas', $arg;
-    
     beforeEach(function() {
-      marina.util = {
-        isConnected: function() {
-          return false;
+      marina.util.connectedState = true;
+      coords = {
+        lattitude: 1,
+        longitude: 2
+      };
+      navigator.geolocation = {
+        getCurrentPosition: function(success, fail) {
+          success({ coords: coords });
         }
       };
-      div.html = jasmine.createSpy();
-      $ = function(id) {
-        $arg = id;
-        return div;
-      };
+      marina.googleMap = jasmine.createSpy();
+    });
+
+    it('should create map with coords when available', function() {
+      marina.views.main().show();
+      expect(marina.googleMap).toHaveBeenCalledWith({coords: coords});
+    });
+
+  });
+
+  describe('disconnected view', function() {
+
+    beforeEach(function() {
+      marina.util.connectedState = false;
     });
 
     it('should show disconnected message in #map_canvas', function() {

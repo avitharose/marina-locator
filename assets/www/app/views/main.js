@@ -10,6 +10,7 @@ marina.views.main = function() {
 
     var view = {}; 
     var geoSuccess = function(position) {
+      console.log('geolocation succesful');
       marina.map = marina.googleMap({coords: position.coords});
     };
     var geoFail = function(e) {
