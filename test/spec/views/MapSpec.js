@@ -90,6 +90,11 @@ describe('Google Map', function() {
       expect(map.currentLocation.setPosition).toHaveBeenCalled();
     });
 
+    it('should create a new latlng with change coords', function() {
+      map.positionChanged({coords: {latitude: 123, longitude: 456}});
+      expect(google.maps.LatLng).toHaveBeenCalledWith(123, 456);
+    });
+
   });
 
   describe('current location marker', function() {
