@@ -32,15 +32,15 @@ describe('Main view', function() {
         lattitude: 1,
         longitude: 2
       };
+      marina.googleMap = jasmine.createSpy();
+    });
+
+    it('should create map with coords when geo available', function() {
       navigator.geolocation = {
         getCurrentPosition: function(success, fail) {
           success({ coords: coords });
         }
       };
-      marina.googleMap = jasmine.createSpy();
-    });
-
-    it('should create map with coords when geo available', function() {
       marina.views.main().show();
       expect(marina.googleMap).toHaveBeenCalledWith({coords: coords});
     });
