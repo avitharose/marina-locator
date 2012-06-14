@@ -1,7 +1,7 @@
-var navigator = {}, coords;
+var navigator = {}, coords, mapCanvas = 'map_canvas';
 
 describe('Main view', function() {
-  var div = {}, mapCanvas = '#map_canvas', $arg;
+  var div = {}, $arg;
 
   beforeEach(function() {
     marina.util = function() {
@@ -72,7 +72,7 @@ describe('Main view', function() {
 
     it('should show disconnected message in #map_canvas', function() {
       marina.views.main().show();
-      expect($arg).toEqual(mapCanvas);
+      expect($arg).toEqual('#' + mapCanvas);
     });
 
     it('should show disconnected message as html', function() {
