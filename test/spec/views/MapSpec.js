@@ -77,21 +77,22 @@ describe('Google Map', function() {
 
   describe('on position change', function() {
 
-    var setPosition, map;
+    var setPosition, map, newPosition;
 
     beforeEach(function() {
+      newPosition = {coords: {latitude: 123, longitude: 456}};
       setPosition = jasmine.createSpy();
       currentLocation.setPosition = setPosition;
       map = marina.googleMap(options);
     });
 
     it('should update the current location marker', function() {
-      map.positionChanged({coords: {latitude: 123, longitude: 456}});
+      map.positionChanged(newPosition);
       expect(map.currentLocation.setPosition).toHaveBeenCalled();
     });
 
     it('should create a new latlng with change coords', function() {
-      map.positionChanged({coords: {latitude: 123, longitude: 456}});
+      map.positionChanged(newPosition);
       expect(google.maps.LatLng).toHaveBeenCalledWith(123, 456);
     });
 
