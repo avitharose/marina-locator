@@ -1,21 +1,21 @@
 marina.views.main = function() {
-  var defaultPosition = {
-    coords: {
-      latitude: 47.688157,
-      longitude: - 122.425461
-    }
-  };
 
   var connectedView = function() {
 
     var view = {}; 
+    view.defaultPosition = {
+      coords: {
+        latitude: 47.688157,
+        longitude: - 122.425461
+      }
+    };
     var geoSuccess = function(position) {
       console.log('geolocation succesful');
       marina.map = marina.googleMap({coords: position.coords});
     };
     var geoFail = function(e) {
       console.log('Failed to get geolocation, using default location' + e);
-      geoSuccess(defaultPosition);
+      geoSuccess(view.defaultPosition);
     };
 
     view.show = function() {

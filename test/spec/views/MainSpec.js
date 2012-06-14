@@ -40,9 +40,19 @@ describe('Main view', function() {
       marina.googleMap = jasmine.createSpy();
     });
 
-    it('should create map with coords when available', function() {
+    it('should create map with coords when geo available', function() {
       marina.views.main().show();
       expect(marina.googleMap).toHaveBeenCalledWith({coords: coords});
+    });
+
+    it('should create map with default coords when geo not available', function() {
+      navigator.geolocation = {
+        getCurrentPosition: function(success, fail) {
+          fail('err');
+        }
+      };
+      marina.views.main().show();
+      expect(marina.googleMap).toHaveBeenCalledWith(marina.views.main().defaultPosition);
     });
 
   });
