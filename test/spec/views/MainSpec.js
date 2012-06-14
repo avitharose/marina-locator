@@ -26,13 +26,20 @@ describe('Main view', function() {
 
   describe('connected view', function() {
 
+    var origGoogleMap;
+
     beforeEach(function() {
       marina.util.connectedState = true;
       coords = {
         lattitude: 1,
         longitude: 2
       };
+      origGoogleMap = marina.googleMap;
       marina.googleMap = jasmine.createSpy();
+    });
+
+    afterEach(function() {
+      marina.googleMap = origGoogleMap;
     });
 
     it('should create map with coords when geo available', function() {

@@ -8,6 +8,7 @@ marina.googleMap = function(options) {
   };
 
 	map.addLocationMarkerTo = function(opts) {
+    // todo write a failing test for this (search for current location)
 		map.currentLocation = new google.maps.Marker({
 			position: opts.latlng,
 			map: googleMap,
