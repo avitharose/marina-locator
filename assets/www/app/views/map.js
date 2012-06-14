@@ -4,7 +4,7 @@ marina.googleMap = function(options) {
   map.positionChanged = function(position) {
     var coords = position.coords;
     var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
-    googleMap.currentLocation.setPosition(latlng);
+    map.currentLocation.setPosition(latlng);
   };
 
 	map.addLocationMarkerTo = function(opts) {

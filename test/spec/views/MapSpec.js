@@ -8,7 +8,7 @@ google.maps.MapTypeId = function() {
 
 describe('Google Map', function() {
 
-  var options = {}, latlng, googleMap;
+  var options = {}, latlng, googleMap, currentLocation;
 
   beforeEach(function() {
     coords = {
@@ -28,7 +28,11 @@ describe('Google Map', function() {
 
     google.maps.KmlLayer = jasmine.createSpy();
     google.maps.KmlLayer.prototype.setMap = jasmine.createSpy();
+
+    currentLocation = jasmine.createSpy();
     google.maps.Marker = jasmine.createSpy();
+    google.maps.Marker.andReturn(currentLocation);
+
     navigator.geolocation.watchPosition = jasmine.createSpy();
   });
 
@@ -62,6 +66,32 @@ describe('Google Map', function() {
     expect(google.maps.Map.mostRecentCall.args[1].mapTypeId).toEqual(google.maps.MapTypeId.TERRAIN);
   });
 
+  describe('marina layer', function() {
+    
+    it('should be on the google map', function() {
+      marina.googleMap(options);
+      expect(google.maps.KmlLayer.prototype.setMap).toHaveBeenCalled();
+    });
+    
+  });
+
+  describe('on position change', function() {
+
+    var setPosition, map;
+
+    beforeEach(function() {
+      setPosition = jasmine.createSpy();
+      currentLocation.setPosition = setPosition;
+      map = marina.googleMap(options);
+    });
+
+    it('should update the current location marker', function() {
+      map.positionChanged({coords: {latitude: 123, longitude: 456}});
+      expect(map.currentLocation.setPosition).toHaveBeenCalled();
+    });
+
+  });
+
   describe('current location marker', function() {
 
     it('should be at the coords passed in', function() {
@@ -75,8 +105,8 @@ describe('Google Map', function() {
     });
 
     it('should be aware of location changes', function() {
-      marina.googleMap(options);
-      expect(navigator.geolocation.watchPosition).toHaveBeenCalled();
+      var map = marina.googleMap(options);
+      expect(navigator.geolocation.watchPosition).toHaveBeenCalledWith(map.positionChanged);
     });
 
   });
