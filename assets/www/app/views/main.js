@@ -43,7 +43,8 @@ marina.views.main = function() {
       console.log('enhance options list');
       $('#map-options').multiselect({
         selectedList: 2,
-        noneSelectedText: 'Map options'
+        noneSelectedText: 'Map options',
+        header: false
       });
     } catch(err) {
       console.log('Error enhancing options: ' + err);

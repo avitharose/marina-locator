@@ -25,6 +25,12 @@ marina.googleMap = function(options) {
     marinaLayer.setMap(googleMap);
   };
 
+  map.addOptionsHandler = function() {
+    $('#map-options').bind('multiselectclick', function(event, ui) {
+      console.log('mulit select click: ' + ui.value);
+    });
+  };
+
   var createMap = function() {
     var latlng = new google.maps.LatLng(options.coords.latitude, options.coords.longitude);
     var mapOptions = {
@@ -35,6 +41,7 @@ marina.googleMap = function(options) {
     googleMap = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
     map.addMarinaLayer();
     map.addLocationMarkerTo({latlng: latlng});
+    map.addOptionsHandler();
     return map;
   };
 
