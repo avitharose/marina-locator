@@ -42,7 +42,9 @@ marina.googleMap = function(options) {
     markers[type] = [];
     try {
       var request = {
-        bounds: googleMap.getBounds(),
+        // bounds: googleMap.getBounds(),
+        location: googleMap.getCenter(),
+        radius: 3200,
         types: [type]
       };
       var service = new google.maps.places.PlacesService(googleMap);
@@ -68,11 +70,12 @@ marina.googleMap = function(options) {
 
   map.addOptionsHandler = function() {
     $('#map-options').bind('multiselectclick', function(event, ui) {
-      console.log('mulit select click: ' + ui.value);
+      var searchType = ui.value;
+      console.log('mulit select click: ' + searchType);
       if (ui.checked) {
-        searchFor(ui.value);
+        searchFor(searchType);
       } else {
-        removeMarkersFor(ui.value);
+        removeMarkersFor(searchType);
       }
     });
   };
