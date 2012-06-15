@@ -16,6 +16,14 @@ marina.googleMap = function(options) {
 		});
     navigator.geolocation.watchPosition(map.positionChanged);
 	};
+
+  map.addMarinaLayer = function() {
+    var marinaLayerOptions = {
+      preserveViewport: true
+    };
+    var marinaLayer = new google.maps.KmlLayer('https://maps.google.com/maps/ms?ie=UTF8&authuser=0&msa=0&output=kml&msid=217422876588338854635.0004c133df227ae5aa19c', marinaLayerOptions);
+    marinaLayer.setMap(googleMap);
+  };
   
   function createMarker(place) {
     var marker = new google.maps.Marker({
@@ -30,41 +38,41 @@ marina.googleMap = function(options) {
     return marker;
   }
 
-  map.addMarinaLayer = function() {
-    var marinaLayerOptions = {
-      preserveViewport: true
-    };
-    var marinaLayer = new google.maps.KmlLayer('https://maps.google.com/maps/ms?ie=UTF8&authuser=0&msa=0&output=kml&msid=217422876588338854635.0004c133df227ae5aa19c', marinaLayerOptions);
-    marinaLayer.setMap(googleMap);
-  };
+  function searchFor(type) {
+    markers[type] = [];
+    try {
+      var request = {
+        bounds: googleMap.getBounds(),
+        types: [type]
+      };
+      var service = new google.maps.places.PlacesService(googleMap);
+      service.search(request, function(results, status) {
+        var marker;
+        console.log('search complete: ' + status + ' found: ' + results.length);
+        for(var i = 0; i < results.length; i++) {
+          marker = createMarker(results[i]);
+          markers[type].push(marker);
+        }
+      });
+    } catch(err) {
+      console.log('error doing places search: ' + err);
+    }
+  }
+
+  function removeMarkersFor(type) {
+    for(var i = 0; i < markers[type].length; i++) {
+      markers[type][i].setMap(null);
+    }
+    markers[type] = {};
+  }
 
   map.addOptionsHandler = function() {
     $('#map-options').bind('multiselectclick', function(event, ui) {
       console.log('mulit select click: ' + ui.value);
       if (ui.checked) {
-      markers[ui.value] = [];
-      try {
-        var request = {
-          bounds: googleMap.getBounds(),
-          types: [ui.value]
-        };
-        var service = new google.maps.places.PlacesService(googleMap);
-        service.search(request, function(results, status) {
-          var marker;
-          console.log('search complete: ' + status + ' found: ' + results.length);
-          for(var i = 0; i < results.length; i++) {
-            marker = createMarker(results[i]);
-            markers[ui.value].push(marker);
-          }
-        });
-      } catch(err) {
-        console.log('error doing places search: ' + err);
-      }
+        searchFor(ui.value);
       } else {
-        for(var i = 0; i < markers[ui.value].length; i++) {
-          markers[ui.value][i].setMap(null);
-        }
-        markers[ui.value] = {};
+        removeMarkersFor(ui.value);
       }
     });
   };
