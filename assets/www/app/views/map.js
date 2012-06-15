@@ -1,5 +1,5 @@
 marina.googleMap = function(options) {
-  var map = {}, googleMap;
+  var map = {}, googleMap, infoWindow, markers = {};
 
   map.positionChanged = function(position) {
     var coords = position.coords;
@@ -16,6 +16,19 @@ marina.googleMap = function(options) {
 		});
     navigator.geolocation.watchPosition(map.positionChanged);
 	};
+  
+  function createMarker(place) {
+    var marker = new google.maps.Marker({
+      map: googleMap,
+      position: place.geometry.location
+    });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      infoWindow.setContent(place.name);
+      infoWindow.open(googleMap, this);
+    });
+    return marker;
+  }
 
   map.addMarinaLayer = function() {
     var marinaLayerOptions = {
@@ -28,6 +41,31 @@ marina.googleMap = function(options) {
   map.addOptionsHandler = function() {
     $('#map-options').bind('multiselectclick', function(event, ui) {
       console.log('mulit select click: ' + ui.value);
+      if (ui.checked) {
+      markers[ui.value] = [];
+      try {
+        var request = {
+          bounds: googleMap.getBounds(),
+          types: [ui.value]
+        };
+        var service = new google.maps.places.PlacesService(googleMap);
+        service.search(request, function(results, status) {
+          var marker;
+          console.log('search complete: ' + status + ' found: ' + results.length);
+          for(var i = 0; i < results.length; i++) {
+            marker = createMarker(results[i]);
+            markers[ui.value].push(marker);
+          }
+        });
+      } catch(err) {
+        console.log('error doing places search: ' + err);
+      }
+      } else {
+        for(var i = 0; i < markers[ui.value].length; i++) {
+          markers[ui.value][i].setMap(null);
+        }
+        markers[ui.value] = {};
+      }
     });
   };
 
@@ -39,6 +77,7 @@ marina.googleMap = function(options) {
       mapTypeId: google.maps.MapTypeId.TERRAIN
     };
     googleMap = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+    infoWindow = new google.maps.InfoWindow();
     map.addMarinaLayer();
     map.addLocationMarkerTo({latlng: latlng});
     map.addOptionsHandler();
