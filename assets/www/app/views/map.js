@@ -70,6 +70,7 @@ marina.googleMap = function(options) {
 
   map.addOptionsHandler = function() {
     $('#map-options').bind('multiselectclick', function(event, ui) {
+      $(this).multiselect('close');
       var searchType = ui.value;
       console.log('mulit select click: ' + searchType);
       if (ui.checked) {
