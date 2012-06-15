@@ -42,6 +42,7 @@ marina.views.main = function() {
     try {
       console.log('enhance options list');
       $('#map-options').multiselect({
+        height: 'auto',
         selectedList: 2,
         noneSelectedText: 'Map options',
         header: false
