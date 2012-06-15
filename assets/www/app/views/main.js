@@ -38,12 +38,25 @@ marina.views.main = function() {
     return view;
   }();
 
+  var enhanceOptionSelect = function() {
+    try {
+      console.log('enhance options list');
+      $('#map-options').multiselect({
+        selectedList: 2,
+        noneSelectedText: 'Map options'
+      });
+    } catch(err) {
+      console.log('Error enhancing options: ' + err);
+    }
+  };
+
   return function() {
     console.log('return main view state function');
     return function() {
-     console.log('adding main view envent listerners for state');
-     document.addEventListener("online", connectedView.show, false);
-     document.addEventListener("offline", disconnectedView.show, false);
+      enhanceOptionSelect();
+      console.log('adding main view envent listerners for state');
+      document.addEventListener("online", connectedView.show, false);
+      document.addEventListener("offline", disconnectedView.show, false);
       console.log('main state function');
       if (marina.util.isConnected()) {
         return connectedView;

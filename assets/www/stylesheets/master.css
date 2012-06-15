@@ -5,12 +5,9 @@ html, body {
   background-color: #696969;
  }
 
-#header {
-  color: #f8f8ff;
-  margin: 0;
-  padding: 0;
-  height: 5%;
-  width:100%;
+#map-options {
+  display: inline;
+  width: 100%;
 }
 
 #map_canvas {

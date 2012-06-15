@@ -3,10 +3,14 @@
   <head>
     <title>Marina Locator</title>
     <link rel="stylesheet" href="stylesheets/master.css" type="text/css" media="screen" title="no title">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" type="text/css" media="screen" title="no title">
+    <link rel="stylesheet" href="stylesheets/jquery.multiselect.css" type="text/css" media="screen" title="no title">
     <meta name="viewport" content="width=device-width; height=device-height; user-scalable=no" />
     <meta charset="UTF-8">
     <script type="text/javascript" src="lib/cordova-1.7.0.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="lib/jquery.multiselect.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript" src="app/app.js"></script>
     <script type="text/javascript" src="app/views/map.js"></script>
@@ -14,7 +18,11 @@
     <script type="text/javascript" src="app/util/util.js"></script>
   </head>
   <body>
-    <div id="header">Marina Locator</div>
+    <div id="header">
+      <select title="Map Options" multiple="multiple" id="map-options" size="5">
+        <option value="restaurants">Restaurants</option>
+      </select>
+    </div>
     <div id="map_canvas"></div>
   </body>
 </html>
