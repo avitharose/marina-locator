@@ -88,7 +88,8 @@ marina.googleMap = function(options) {
     var mapOptions = {
       zoom: 12,
       center: latlng,
-      mapTypeId: google.maps.MapTypeId.TERRAIN
+      mapTypeId: google.maps.MapTypeId.TERRAIN,
+      mapTypeControl: false
     };
     googleMap = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
     infoWindow = new google.maps.InfoWindow();
