@@ -45,7 +45,6 @@ marina.views.main = function() {
         height: 'auto',
         selectedText: function(numChecked, numTotal, checkedItems) {
           return $(checkedItems).map(function(index, element) {
-            // console.log('text for: ' + $(element).parent().html());
             return $(element).attr('title');
           }).get().join(',');
         },
