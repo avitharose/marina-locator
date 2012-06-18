@@ -25,8 +25,9 @@ marina.googleMap = function(options) {
     marinaLayer.setMap(googleMap);
   };
   
-  function createMarker(place) {
+  function createMarker(place, options) {
     var marker = new google.maps.Marker({
+      icon: 'images/' + options.image + '.png',
       map: googleMap,
       position: place.geometry.location
     });
@@ -38,22 +39,21 @@ marina.googleMap = function(options) {
     return marker;
   }
 
-  function searchFor(type) {
-    markers[type] = [];
+  function searchFor(options) {
+    markers[options.type] = [];
     try {
       var request = {
-        // bounds: googleMap.getBounds(),
         location: googleMap.getCenter(),
         radius: 3200,
-        types: [type]
+        types: [options.type]
       };
       var service = new google.maps.places.PlacesService(googleMap);
       service.search(request, function(results, status) {
         var marker;
         console.log('search complete: ' + status + ' found: ' + results.length);
         for(var i = 0; i < results.length; i++) {
-          marker = createMarker(results[i]);
-          markers[type].push(marker);
+          marker = createMarker(results[i], options);
+          markers[options.type].push(marker);
         }
       });
     } catch(err) {
@@ -72,9 +72,11 @@ marina.googleMap = function(options) {
     $('#map-options').bind('multiselectclick', function(event, ui) {
       $(this).multiselect('close');
       var searchType = ui.value;
+      var image = $(this).find('option[value="' + searchType + '"]').data('image');
+      console.log('image for search: ' + image);
       console.log('mulit select click: ' + searchType);
       if (ui.checked) {
-        searchFor(searchType);
+        searchFor({type: searchType, image: image});
       } else {
         removeMarkersFor(searchType);
       }
