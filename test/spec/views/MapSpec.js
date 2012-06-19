@@ -10,16 +10,15 @@ google.maps.event = function() {
 
 describe('Google Map', function() {
 
-  var options = {}, latlng, googleMap, currentLocation, div;
+  var options = {}, latlng, googleMap, currentLocation, mapOptions;
 
   beforeEach(function() {
+    mapOptions = jasmine.createSpy();
+    mapOptions.bind = jasmine.createSpy();
     $ = function(id) {
       $arg = id;
-      return div;
+      return mapOptions;
     };
-
-    div = jasmine.createSpy();
-    div.bind = jasmine.createSpy();
 
     coords = {
       lattitude: 1,
@@ -133,9 +132,21 @@ describe('Google Map', function() {
 
   describe('options', function() {
 
-    it('should be updated on click', function() {
+    it('should be updated on dragend', function() {
       marina.googleMap(options);
-      expect(google.maps.event.addListener).toHaveBeenCalled();
+      expect(google.maps.event.addListener).toHaveBeenCalledWith(
+        googleMap, 'dragend', jasmine.any(Function));
+    });
+
+    it('should be updated on zoom change', function() {
+      marina.googleMap(options);
+      expect(google.maps.event.addListener).toHaveBeenCalledWith(
+        googleMap, 'zoom_changed', jasmine.any(Function));
+    });
+    
+    it('should be update on option being selected', function() {
+      marina.googleMap(options);
+      expect(mapOptions.bind).toHaveBeenCalledWith('multiselectclick', jasmine.any(Function));
     });
 
   });

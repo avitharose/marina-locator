@@ -18,6 +18,8 @@ describe('Main view', function() {
       $arg = id;
       return div;
     };
+
+    div.multiselect = jasmine.createSpy();
   });
 
   it('should exists', function() {
@@ -40,6 +42,16 @@ describe('Main view', function() {
 
     afterEach(function() {
       marina.googleMap = origGoogleMap;
+    });
+
+    it('should enhance options for multi select list', function() {
+      navigator.geolocation = {
+        getCurrentPosition: function(success, fail) {
+          success({ coords: coords });
+        }
+      };
+      marina.views.main().show();
+      expect(div.multiselect).toHaveBeenCalled();
     });
 
     it('should create map with coords when geo available', function() {
