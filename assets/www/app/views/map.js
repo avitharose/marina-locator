@@ -43,8 +43,9 @@ marina.googleMap = function(options) {
     markers[options.type] = [];
     try {
       var request = {
-        location: googleMap.getCenter(),
-        radius: 3200,
+        bounds: googleMap.getBounds(),
+        // location: googleMap.getCenter(),
+        // radius: 3200,
         types: [options.type]
       };
       var service = new google.maps.places.PlacesService(googleMap);
@@ -83,6 +84,19 @@ marina.googleMap = function(options) {
     });
   };
 
+  map.addViewChangeHandler = function() {
+    google.maps.event.addListener(googleMap, 'bounds_changed', function() {
+      console.log('map bounds changed');
+      $('#map-options').find('option:selected').each(function(index, element) {
+        var searchType = $(element).attr('value');
+        var image = $(element).data('image');
+        console.log('option: ' + searchType);
+        removeMarkersFor(searchType);
+        searchFor({type: searchType, image: image});
+      });
+    });
+  };
+
   var createMap = function() {
     var latlng = new google.maps.LatLng(options.coords.latitude, options.coords.longitude);
     var mapOptions = {
@@ -97,6 +111,7 @@ marina.googleMap = function(options) {
     map.addMarinaLayer();
     map.addLocationMarkerTo({latlng: latlng});
     map.addOptionsHandler();
+    map.addViewChangeHandler();
     return map;
   };
 
