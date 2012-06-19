@@ -5,7 +5,7 @@ google.maps = function() {
 };
 google.maps.MapTypeId = function() {
 };
-google.map.event = function() {
+google.maps.event = function() {
 };
 
 describe('Google Map', function() {
@@ -127,6 +127,15 @@ describe('Google Map', function() {
     it('should be aware of location changes', function() {
       var map = marina.googleMap(options);
       expect(navigator.geolocation.watchPosition).toHaveBeenCalledWith(map.positionChanged);
+    });
+
+  });
+
+  describe('options', function() {
+
+    it('should be updated on click', function() {
+      marina.googleMap(options);
+      expect(google.maps.event.addListener).toHaveBeenCalled();
     });
 
   });
