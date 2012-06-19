@@ -84,17 +84,20 @@ marina.googleMap = function(options) {
     });
   };
 
-  map.addViewChangeHandler = function() {
-    google.maps.event.addListener(googleMap, 'dragend', function() {
-      console.log('map bounds changed');
-      $('#map-options').find('option:selected').each(function(index, element) {
-        var searchType = $(element).attr('value');
-        var image = $(element).data('image');
-        console.log('option: ' + searchType);
-        removeMarkersFor(searchType);
-        searchFor({type: searchType, image: image});
-      });
+  function updateOptionMarkers() {
+    console.log('map bounds changed');
+    $('#map-options').find('option:selected').each(function(index, element) {
+      var searchType = $(element).attr('value');
+      var image = $(element).data('image');
+      console.log('option: ' + searchType);
+      removeMarkersFor(searchType);
+      searchFor({type: searchType, image: image});
     });
+  }
+
+  map.addViewChangeHandler = function() {
+    google.maps.event.addListener(googleMap, 'dragend', updateOptionMarkers);
+    google.maps.event.addListener(googleMap, 'zoom_changed', updateOptionMarkers);
   };
 
   var createMap = function() {
