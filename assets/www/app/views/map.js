@@ -85,7 +85,7 @@ marina.googleMap = function(options) {
   };
 
   map.addViewChangeHandler = function() {
-    google.maps.event.addListener(googleMap, 'bounds_changed', function() {
+    google.maps.event.addListener(googleMap, 'dragend', function() {
       console.log('map bounds changed');
       $('#map-options').find('option:selected').each(function(index, element) {
         var searchType = $(element).attr('value');
