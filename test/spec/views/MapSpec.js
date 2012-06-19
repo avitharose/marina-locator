@@ -5,12 +5,22 @@ google.maps = function() {
 };
 google.maps.MapTypeId = function() {
 };
+google.map.event = function() {
+};
 
 describe('Google Map', function() {
 
-  var options = {}, latlng, googleMap, currentLocation;
+  var options = {}, latlng, googleMap, currentLocation, div;
 
   beforeEach(function() {
+    $ = function(id) {
+      $arg = id;
+      return div;
+    };
+
+    div = jasmine.createSpy();
+    div.bind = jasmine.createSpy();
+
     coords = {
       lattitude: 1,
       longitude: 2
@@ -25,6 +35,10 @@ describe('Google Map', function() {
     googleMap = jasmine.createSpy();
     google.maps.Map = jasmine.createSpy();
     google.maps.Map.andReturn(googleMap);
+
+    google.maps.event.addListener = jasmine.createSpy();
+
+    google.maps.InfoWindow = jasmine.createSpy();
 
     google.maps.KmlLayer = jasmine.createSpy();
     google.maps.KmlLayer.prototype.setMap = jasmine.createSpy();
