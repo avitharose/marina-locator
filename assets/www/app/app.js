@@ -4,9 +4,9 @@ marina.views = {};
 $(function() {
 
   console.log('in $()');
-  $('#spinner').spin();
 
 	function deviceReady() {
+    $('#spinner').spin();
     console.log('device ready, show main view');
     marina.views.main().show();
 	}

@@ -1,5 +1,6 @@
-var appCallback, $ = function(func) {
+var fakeElement = jasmine.createSpy(), appCallback, $ = function(func) {
   appCallback = func;
+  return fakeElement;
 };
 
 var document = function() {
@@ -11,6 +12,7 @@ describe("App startupn", function() {
 
   beforeEach(function() {
     document.addEventListener = jasmine.createSpy();  
+    fakeElement.spin = jasmine.createSpy();
     origMain = marina.views.main;
     marina.views.main = jasmine.createSpy();
     view.show = jasmine.createSpy();
