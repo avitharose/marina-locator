@@ -5,7 +5,26 @@ html, body {
   background-color: #696969;
  }
 
+#header {
+  position: relative;
+}
+
+.spinner {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: black;
+  width: 25px;
+  height: 25px;
+  margin: 0 3px;
+  float: right;
+  z-index: 999999;
+}
+
 #map-options {
+  position: absolute;
+  left: 0;
+  top: 0;
   display: inline;
   width: 100%;
 }
