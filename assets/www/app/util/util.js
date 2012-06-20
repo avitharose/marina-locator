@@ -2,6 +2,30 @@ marina.util = (function() {
 	var util = {},
 	states = null;
 
+  util.spinner = function() {
+    $.fn.spin = function(opts) {
+      this.each(function() {
+        var $this = $(this),
+        data = $this.data();
+
+      if (data.spinner) {
+        data.spinner.stop();
+        delete data.spinner;
+      }
+      if (opts !== false) {
+        data.spinner = new Spinner($.extend({
+          color: $this.css('color'),
+          lines: 7,
+          length: 5,
+          width: 4,
+          radius: 4
+        }, opts)).spin(this);
+      }
+      });
+      return this;
+    };
+  }();
+
 	util.states = function() {
 		if (states === null) {
 			states = {};
