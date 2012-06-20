@@ -27,6 +27,14 @@ marina.util = (function() {
     };
   }();
 
+  util.startSpinner = function() {
+    $('#spinner').spin();
+  };
+
+  util.stopSpinner = function() {
+    $('#spinner').spin(false);
+  };
+
 	util.states = function() {
 		if (states === null) {
 			states = {};
