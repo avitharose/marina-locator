@@ -18,7 +18,8 @@ marina.util = (function() {
           lines: 7,
           length: 5,
           width: 4,
-          radius: 4
+          radius: 4,
+          speed: 1.0
         }, opts)).spin(this);
       }
       });
