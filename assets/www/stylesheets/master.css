@@ -10,6 +10,10 @@ html, body {
 }
 
 #details {
+  border: 1px solid black;
+  margin-top: 8px;
+  padding: 5px;
+  background: white;
   font-size: 0.8em;
 }
 

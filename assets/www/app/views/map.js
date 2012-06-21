@@ -51,6 +51,7 @@ marina.googleMap = function(options) {
       };
       var service = new google.maps.places.PlacesService(googleMap);
       service.getDetails(request, function(place, status) {
+
         console.log('recieved details for: ' + place.name); 
         var content = '<div id="details">'; 
         content += '<h3>' + place.name + '</h3>';
@@ -61,10 +62,33 @@ marina.googleMap = function(options) {
           content += '<div><a target="_blank" href=' + util.displayValue(place.website) + '>Website</a></div>';
         }
         content += '</div>';
-        if (infoWindow.currentPlaceId === place.id) {
-          infoWindow.setContent(content);
-          infoWindow.open(googleMap, anchor);
-        }
+
+		var myOptions = {
+			 content: content,
+			disableAutoPan: false,
+			maxWidth: 0,
+			pixelOffset: new google.maps.Size(-140, 0),
+			zIndex: null,
+			boxStyle: { 
+			  background: "url('images/tipbox.gif') no-repeat",
+			  opacity: 0.75,
+			  width: "240px"
+			},
+			closeBoxMargin: "10px 2px 2px 2px",
+			closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+			infoBoxClearance: new google.maps.Size(1, 1),
+			isHidden: false,
+			pane: "floatPane",
+			enableEventPropagation: false
+		};
+    var ib = new InfoBox(myOptions);
+
+        ib.open(googleMap, marker);
+
+        // if (infoWindow.currentPlaceId === place.id) {
+        //   infoWindow.setContent(content);
+        //   infoWindow.open(googleMap, anchor);
+        // }
       });
     });
     return marker;
