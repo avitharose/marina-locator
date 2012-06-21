@@ -29,6 +29,12 @@ marina.googleMap = function(options) {
     });
   };
   
+  function createDisplayFor(label, value) {
+    var content = '<div><h2>' + label + '</h2>';
+    content += util.displayValue(value) + '</div>';
+    return content;
+  }
+
   function createMarker(place, options) {
     var marker = new google.maps.Marker({
       icon: 'images/' + options.image + '.png',
@@ -48,9 +54,9 @@ marina.googleMap = function(options) {
         console.log('recieved details for: ' + place.name); 
         var content = '<div id="details">'; 
         content += '<h3>' + place.name + '</h3>';
-        content += '<div><h2>Rating:</h2>' + util.displayValue(place.rating) + '</div>';
-        content += '<div><h2>Phone:</h2>' + util.displayValue(place.formatted_phone_number) + '</div>';
-        content += '<div><h2>Address:</h2></div><div>' + util.displayValue(place.formatted_address) + '</div>';
+        content += createDisplayFor('Rating', place.rating);
+        content += createDisplayFor('phone', place.formatted_phone_number);
+        content += createDisplayFor('address', place.formatted_address);
         if (place.website) {
           content += '<div><a target="_blank" href=' + util.displayValue(place.website) + '>Website</a></div>';
         }
