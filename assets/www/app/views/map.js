@@ -36,7 +36,10 @@ marina.googleMap = function(options) {
     });
 
     google.maps.event.addListener(marker, 'click', function() {
-      infoWindow.setContent(place.name);
+      var content = '<h3>' + place.name + '</h3>';
+      content += '<span class="title">Rating:</span>';
+      content += '<span class="info">' + place.rating + '</span>';
+      infoWindow.setContent(content);
       infoWindow.open(googleMap, this);
     });
     return marker;
