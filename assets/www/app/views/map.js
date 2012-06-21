@@ -59,9 +59,11 @@ marina.googleMap = function(options) {
           marker = createMarker(results[i], options);
           markers[options.type].push(marker);
         }
+        marina.util.stopSpinner();
       });
     } catch(err) {
       console.log('error doing places search: ' + err);
+      marina.util.stopSpinner();
     }
   }
 
@@ -70,10 +72,12 @@ marina.googleMap = function(options) {
       markers[type][i].setMap(null);
     }
     markers[type] = {};
+    marina.util.stopSpinner();
   }
 
   map.addOptionsHandler = function() {
     $('#map-options').bind('multiselectclick', function(event, ui) {
+      marina.util.startSpinner();
       $(this).multiselect('close');
       var searchType = ui.value;
       var image = $(this).find('option[value="' + searchType + '"]').data('image');
