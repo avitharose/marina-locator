@@ -41,6 +41,24 @@ marina.googleMap = function(options) {
       content += '<span class="info">' + place.rating + '</span>';
       infoWindow.setContent(content);
       infoWindow.open(googleMap, this);
+      infoWindow.currentPlaceId = place.id;
+
+      var request = {
+        reference: place.reference
+      };
+      var service = new google.maps.places.PlacesService(googleMap);
+      service.getDetails(request, function(place, status) {
+        console.log('recieved details for: ' + place.name); 
+        var content = '<h3>' + place.name + '</h3>';
+        content += '<span class="title">Rating:</span>';
+        content += '<span class="info">' + place.rating + '</span>';
+        content += '<span class="title">Phone:</span>';
+        content += '<span class="info">' + place.formatted_phone_number + '</span>';
+        content += '<span class="title">Address:</span>';
+        content += '<span class="info">' + place.formatted_address + '</span>';
+        content += '<span class="title"><a target="_blank" href=' + place.website + '>Website</a></span>';
+        infoWindow.setContent(content);
+      });
     });
     return marker;
   }
