@@ -9,6 +9,26 @@ html, body {
   position: relative;
 }
 
+#details {
+  font-size: 0.8em;
+}
+
+#details h1 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+#details h2 {
+  display: inline;
+  font-size: 0.8em;
+  font-weight: bold;
+  padding-right: 2em;
+}
+
+#details a {
+  font-size: 0.8em;
+}
+
 .spinner {
   position: absolute;
   right: 0;
