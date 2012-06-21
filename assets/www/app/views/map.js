@@ -57,7 +57,9 @@ marina.googleMap = function(options) {
         content += '<span class="title">Address:</span>';
         content += '<span class="info">' + place.formatted_address + '</span>';
         content += '<span class="title"><a target="_blank" href=' + place.website + '>Website</a></span>';
-        infoWindow.setContent(content);
+        if (infoWindow.currentPlaceId === place.id) {
+          infoWindow.setContent(content);
+        }
       });
     });
     return marker;
