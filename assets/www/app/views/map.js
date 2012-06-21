@@ -94,10 +94,12 @@ marina.googleMap = function(options) {
   function updateOptionMarkers() {
     console.log('map bounds changed');
     $('#map-options').find('option:selected').each(function(index, element) {
+      marina.util.startSpinner();
       var searchType = $(element).attr('value');
       var image = $(element).data('image');
       console.log('option: ' + searchType);
       removeMarkersFor(searchType);
+      marina.util.startSpinner();
       searchFor({type: searchType, image: image});
     });
   }
