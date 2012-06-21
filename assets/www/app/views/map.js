@@ -37,12 +37,8 @@ marina.googleMap = function(options) {
     });
 
     google.maps.event.addListener(marker, 'click', function() {
-      var content = '<h3>' + place.name + '</h3>';
-      content += '<span class="title">Rating:</span>';
-      content += '<span class="info">' + place.rating + '</span>';
-      infoWindow.setContent(content);
-      infoWindow.open(googleMap, this);
       infoWindow.currentPlaceId = place.id;
+      var anchor = this;
 
       var request = {
         reference: place.reference
@@ -52,13 +48,16 @@ marina.googleMap = function(options) {
         console.log('recieved details for: ' + place.name); 
         var content = '<div id="details">'; 
         content += '<h3>' + place.name + '</h3>';
-        content += '<div><h2>Rating:</h2>' + util.displayValueFor(place.rating) + '</div>';
-        content += '<div><h2>Phone:</h2>' + util.displayValueFor(place.formatted_phone_number) + '</div>';
-        content += '<div><h2>Address:</h2></div><div>' + util.displayValueFor(place.formatted_address) + '</div>';
-        content += '<div><a target="_blank" href=' + util.displayValueFor(place.website) + '>Website</a></div>';
+        content += '<div><h2>Rating:</h2>' + util.displayValue(place.rating) + '</div>';
+        content += '<div><h2>Phone:</h2>' + util.displayValue(place.formatted_phone_number) + '</div>';
+        content += '<div><h2>Address:</h2></div><div>' + util.displayValue(place.formatted_address) + '</div>';
+        if (place.website) {
+          content += '<div><a target="_blank" href=' + util.displayValue(place.website) + '>Website</a></div>';
+        }
         content += '</div>';
         if (infoWindow.currentPlaceId === place.id) {
           infoWindow.setContent(content);
+          infoWindow.open(googleMap, anchor);
         }
       });
     });
@@ -70,8 +69,6 @@ marina.googleMap = function(options) {
     try {
       var request = {
         bounds: googleMap.getBounds(),
-        // location: googleMap.getCenter(),
-        // radius: 3200,
         types: [options.type]
       };
       var service = new google.maps.places.PlacesService(googleMap);

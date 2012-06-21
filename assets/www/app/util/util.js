@@ -35,7 +35,7 @@ marina.util = (function() {
     $('#spinner').spin(false);
   };
 
-  util.displayValueFor = function(value) {
+  util.displayValue = function(value) {
     if (value === undefined || value === null) {
       return '';
     }
