@@ -1,5 +1,6 @@
 marina.googleMap = function(options) {
   var map = {}, googleMap, infoWindow, markers = {};
+  var util = marina.util;
 
   map.positionChanged = function(position) {
     var coords = position.coords;
@@ -51,10 +52,10 @@ marina.googleMap = function(options) {
         console.log('recieved details for: ' + place.name); 
         var content = '<div id="details">'; 
         content += '<h3>' + place.name + '</h3>';
-        content += '<div><h2>Rating:</h2>' + place.rating + '</div>';
-        content += '<div><h2>Phone:</h2>' + place.formatted_phone_number + '</div>';
-        content += '<div><h2>Address:</h2></div><div>' + place.formatted_address + '</div>';
-        content += '<div><a target="_blank" href=' + place.website + '>Website</a></div>';
+        content += '<div><h2>Rating:</h2>' + util.displayValueFor(place.rating) + '</div>';
+        content += '<div><h2>Phone:</h2>' + util.displayValueFor(place.formatted_phone_number) + '</div>';
+        content += '<div><h2>Address:</h2></div><div>' + util.displayValueFor(place.formatted_address) + '</div>';
+        content += '<div><a target="_blank" href=' + util.displayValueFor(place.website) + '>Website</a></div>';
         content += '</div>';
         if (infoWindow.currentPlaceId === place.id) {
           infoWindow.setContent(content);
