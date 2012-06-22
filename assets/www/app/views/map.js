@@ -46,7 +46,30 @@ marina.googleMap = function(options) {
 			content += '<div><a target="_blank" href=' + util.displayValue(place.website) + '>Website</a></div>';
 		}
 		content += '</div>';
-    return content;
+		return content;
+	}
+
+	function displayInfoWindowFor(place, marker) {
+		var options = {
+			content: createDetailContent(place),
+			disableAutoPan: false,
+			maxWidth: 0,
+			pixelOffset: new google.maps.Size( - 100, 0),
+			zIndex: null,
+			boxStyle: {
+				background: "url('images/tipbox-200.png') no-repeat",
+				opacity: 0.75,
+				width: "240px"
+			},
+			closeBoxMargin: "10px 2px 2px 2px",
+			closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+			infoBoxClearance: new google.maps.Size(40, 10),
+			isHidden: false,
+			pane: "floatPane",
+			enableEventPropagation: false
+		};
+		var ib = new InfoBox(options);
+		ib.open(googleMap, marker);
 	}
 
 	function createMarker(place, options) {
@@ -65,34 +88,8 @@ marina.googleMap = function(options) {
 			};
 			var service = new google.maps.places.PlacesService(googleMap);
 			service.getDetails(request, function(place, status) {
-		    console.log('recieved details for: ' + place.name);
-
-				var myOptions = {
-					content: createDetailContent(place),
-					disableAutoPan: false,
-					maxWidth: 0,
-					pixelOffset: new google.maps.Size( - 100, 0),
-					zIndex: null,
-					boxStyle: {
-						background: "url('images/tipbox-200.png') no-repeat",
-						opacity: 0.75,
-						width: "240px"
-					},
-					closeBoxMargin: "10px 2px 2px 2px",
-					closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
-					infoBoxClearance: new google.maps.Size(40, 10),
-					isHidden: false,
-					pane: "floatPane",
-					enableEventPropagation: false
-				};
-				var ib = new InfoBox(myOptions);
-
-				ib.open(googleMap, marker);
-
-				// if (infoWindow.currentPlaceId === place.id) {
-				//   infoWindow.setContent(content);
-				//   infoWindow.open(googleMap, anchor);
-				// }
+				console.log('recieved details for: ' + place.name);
+        displayInfoWindowFor(place, marker);
 			});
 		});
 		return marker;
