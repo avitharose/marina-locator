@@ -67,10 +67,10 @@ marina.googleMap = function(options) {
 			 content: content,
 			disableAutoPan: false,
 			maxWidth: 0,
-			pixelOffset: new google.maps.Size(-140, 0),
+			pixelOffset: new google.maps.Size(-120, 0),
 			zIndex: null,
 			boxStyle: { 
-			  background: "url('images/tipbox.gif') no-repeat",
+			  background: "url('images/tipbox-240.png') no-repeat",
 			  opacity: 0.75,
 			  width: "240px"
 			},
