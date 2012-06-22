@@ -22,12 +22,43 @@ marina.googleMap = function(options) {
 	map.addMarinaLayer = function() {
 		var marinaLayerOptions = {
 			preserveViewport: true,
-      suppressInfoWindows: true
+			suppressInfoWindows: true
 		};
 		var marinaLayer = new google.maps.KmlLayer('https://maps.google.com/maps/ms?ie=UTF8&authuser=0&msa=0&output=kml&msid=217422876588338854635.0004c133df227ae5aa19c', marinaLayerOptions);
 		marinaLayer.setMap(googleMap);
 		google.maps.event.addListener(marinaLayer, 'status_changed', function() {
 			marina.util.stopSpinner();
+		});
+
+		google.maps.event.addListener(marinaLayer, 'click', function(event) {
+      var featureData = event.featureData;
+      featureData.getPosition = function() {
+        return event.latLng;
+      };
+
+      // console.log(featureData.infoWindowHtml);
+      var content = '<div id="details">' + featureData.infoWindowHtml + '</div>';
+
+			var options = {
+				content: content,
+				disableAutoPan: false,
+				maxWidth: 0,
+				pixelOffset: new google.maps.Size(-100, 0),
+				zIndex: null,
+				boxStyle: {
+					background: "url('images/tipbox-200.png') no-repeat",
+					opacity: 0.75,
+					width: "200px"
+				},
+				closeBoxMargin: "10px 2px 2px 2px",
+				closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+				infoBoxClearance: new google.maps.Size(45, 20),
+				isHidden: false,
+				pane: "floatPane",
+				enableEventPropagation: false
+			};
+			var ib = new InfoBox(options);
+			ib.open(googleMap, featureData);
 		});
 	};
 
@@ -41,8 +72,8 @@ marina.googleMap = function(options) {
 		var content = '<div id="details">';
 		content += '<h3>' + place.name + '</h3>';
 		content += createDisplayFor('Rating', place.rating);
-		content += createDisplayFor('phone', place.formatted_phone_number);
-		content += createDisplayFor('address', place.formatted_address);
+		content += createDisplayFor('Phone', place.formatted_phone_number);
+		content += createDisplayFor('Address', place.formatted_address);
 		if (place.website) {
 			content += '<div><a target="_blank" href=' + util.displayValue(place.website) + '>Website</a></div>';
 		}
@@ -50,7 +81,7 @@ marina.googleMap = function(options) {
 		return content;
 	}
 
-  function displayDetailOnClickFor(place, marker) {
+	function displayDetailOnClickFor(place, marker) {
 		google.maps.event.addListener(marker, 'click', function() {
 			var request = {
 				reference: place.reference
@@ -58,10 +89,10 @@ marina.googleMap = function(options) {
 			var service = new google.maps.places.PlacesService(googleMap);
 			service.getDetails(request, function(place, status) {
 				console.log('recieved details for: ' + place.name);
-        displayInfoWindowFor(place, marker);
+				displayInfoWindowFor(place, marker);
 			});
 		});
-  }
+	}
 
 	function displayInfoWindowFor(place, marker) {
 		var options = {
@@ -77,7 +108,7 @@ marina.googleMap = function(options) {
 			},
 			closeBoxMargin: "10px 2px 2px 2px",
 			closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
-			infoBoxClearance: new google.maps.Size(45, 10),
+			infoBoxClearance: new google.maps.Size(45, 20),
 			isHidden: false,
 			pane: "floatPane",
 			enableEventPropagation: false
@@ -92,7 +123,7 @@ marina.googleMap = function(options) {
 			map: googleMap,
 			position: place.geometry.location
 		});
-    displayDetailOnClickFor(place, marker);
+		displayDetailOnClickFor(place, marker);
 		return marker;
 	}
 
