@@ -49,6 +49,19 @@ marina.googleMap = function(options) {
 		return content;
 	}
 
+  function displayDetailOnClickFor(place, marker) {
+		google.maps.event.addListener(marker, 'click', function() {
+			var request = {
+				reference: place.reference
+			};
+			var service = new google.maps.places.PlacesService(googleMap);
+			service.getDetails(request, function(place, status) {
+				console.log('recieved details for: ' + place.name);
+        displayInfoWindowFor(place, marker);
+			});
+		});
+  }
+
 	function displayInfoWindowFor(place, marker) {
 		var options = {
 			content: createDetailContent(place),
@@ -78,20 +91,7 @@ marina.googleMap = function(options) {
 			map: googleMap,
 			position: place.geometry.location
 		});
-
-		google.maps.event.addListener(marker, 'click', function() {
-			infoWindow.currentPlaceId = place.id;
-			var anchor = this;
-
-			var request = {
-				reference: place.reference
-			};
-			var service = new google.maps.places.PlacesService(googleMap);
-			service.getDetails(request, function(place, status) {
-				console.log('recieved details for: ' + place.name);
-        displayInfoWindowFor(place, marker);
-			});
-		});
+    displayDetailOnClickFor(place, marker);
 		return marker;
 	}
 
