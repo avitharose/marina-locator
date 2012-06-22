@@ -21,7 +21,8 @@ marina.googleMap = function(options) {
 
 	map.addMarinaLayer = function() {
 		var marinaLayerOptions = {
-			preserveViewport: true
+			preserveViewport: true,
+      suppressInfoWindows: true
 		};
 		var marinaLayer = new google.maps.KmlLayer('https://maps.google.com/maps/ms?ie=UTF8&authuser=0&msa=0&output=kml&msid=217422876588338854635.0004c133df227ae5aa19c', marinaLayerOptions);
 		marinaLayer.setMap(googleMap);
