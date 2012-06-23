@@ -33,6 +33,11 @@ html, body {
   font-size: 0.8em;
 }
 
+#details img {
+  width: 5.2em;
+  height: 0.9em;
+}
+
 .spinner {
   position: absolute;
   right: 0;
