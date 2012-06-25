@@ -79,26 +79,26 @@ marina.googleMap = function(options) {
 	}
 
   function createInfoBox(options) {
-			var defaults = {
-				content: options.content,
-				disableAutoPan: false,
-				maxWidth: 0,
-				pixelOffset: options.pixelOffset || new google.maps.Size(-100, 0),
-				zIndex: null,
-				boxStyle: options.boxStyle || {
-					background: "url('images/tipbox-200.png') no-repeat",
-					opacity: 0.75,
-					width: "200px"
-				},
-				closeBoxMargin: "10px 2px 2px 2px",
-				closeBoxURL: "images/close.png",
-				infoBoxClearance: new google.maps.Size(45, 20),
-				isHidden: false,
-				pane: "floatPane",
-				enableEventPropagation: false
-			};
-			var ib = new InfoBox(defaults);
-			ib.open(googleMap, options.marker);
+		var defaults = {
+			content: options.content,
+			disableAutoPan: false,
+			maxWidth: 0,
+			pixelOffset: options.pixelOffset || new google.maps.Size(-100, 0),
+			zIndex: null,
+			boxStyle: options.boxStyle || {
+				background: "url('images/tipbox-200.png') no-repeat",
+				opacity: 0.75,
+				width: "200px"
+			},
+			closeBoxMargin: "10px 2px 2px 2px",
+			closeBoxURL: "images/close.png",
+			infoBoxClearance: new google.maps.Size(45, 20),
+			isHidden: false,
+			pane: "floatPane",
+			enableEventPropagation: false
+		};
+		var ib = new InfoBox(defaults);
+		ib.open(googleMap, options.marker);
   }
 
 	function displayInfoWindowFor(place, marker) {

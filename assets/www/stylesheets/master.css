@@ -72,3 +72,6 @@ html, body {
   padding-left: 0.5em;
 }
 
+.ui-multiselect-checkboxes li { 
+  font-size: 1.4em;
+}
