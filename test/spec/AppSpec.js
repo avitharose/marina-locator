@@ -17,6 +17,8 @@ describe("App startupn", function() {
     marina.views.main = jasmine.createSpy();
     view.show = jasmine.createSpy();
     marina.views.main.andReturn(view);
+    marina.util = jasmine.createSpy();
+    marina.util.startSpinner = jasmine.createSpy();
   });
 
   afterEach(function() {
