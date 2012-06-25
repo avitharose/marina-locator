@@ -200,12 +200,17 @@ marina.googleMap = function(options) {
 
 	var createMap = function() {
 		var latlng = new google.maps.LatLng(options.coords.latitude, options.coords.longitude);
+    var noPOIStyles = [{ 
+      featureType: "poi", 
+      stylers: [ { visibility: "off" } ] 
+    }]; 
 		var mapOptions = {
 			zoom: 12,
 			center: latlng,
 			mapTypeId: google.maps.MapTypeId.TERRAIN,
 			mapTypeControl: false,
-			streetViewControl: false
+			streetViewControl: false,
+      styles: noPOIStyles
 		};
 		googleMap = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 		infoWindow = new google.maps.InfoWindow();
