@@ -71,7 +71,7 @@ marina.googleMap = function(options) {
 	function createDetailContent(place) {
 		var content = '<div id="details">';
 		content += '<h3>' + place.name + '</h3>';
-    content += '<div><h2>Rating</h2><img alt="' + place.rating + '" src="images/' + place.rating + '-stars.png"></img>';
+    content += '<div><h2>Rating</h2><img alt="' + place.rating + '" src="images/ratings/' + place.rating + '-stars.png"></img>';
 		content += createDisplayFor('Phone', place.formatted_phone_number);
 		content += createDisplayFor('Address', place.formatted_address);
 		if (place.website) {
