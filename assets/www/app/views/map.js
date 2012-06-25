@@ -31,19 +31,19 @@ marina.googleMap = function(options) {
 		});
 
 		google.maps.event.addListener(marinaLayer, 'click', function(event) {
-			var featureData = event.featureData;
-			featureData.getPosition = function() {
-				return event.latLng;
-			};
+      var featureData = event.featureData;
+      featureData.getPosition = function() {
+        return event.latLng;
+      };
 
-			// console.log(featureData.infoWindowHtml);
-			var content = '<div id="details">' + featureData.infoWindowHtml + '</div>';
+      // console.log(featureData.infoWindowHtml);
+      var content = '<div id="details">' + featureData.infoWindowHtml + '</div>';
 
 			var options = {
 				content: content,
 				disableAutoPan: false,
 				maxWidth: 0,
-				pixelOffset: new google.maps.Size( - 100, 0),
+				pixelOffset: new google.maps.Size(-100, 0),
 				zIndex: null,
 				boxStyle: {
 					background: "url('images/tipbox-200.png') no-repeat",
@@ -71,7 +71,7 @@ marina.googleMap = function(options) {
 	function createDetailContent(place) {
 		var content = '<div id="details">';
 		content += '<h3>' + place.name + '</h3>';
-		content += '<div><h2>Rating</h2><img alt="' + place.rating + '" src="images/ratings/' + place.rating + '-stars.png"></img>';
+    content += '<div><h2>Rating</h2><img alt="' + place.rating + '" src="images/ratings/' + place.rating + '-stars.png"></img>';
 		content += createDisplayFor('Phone', place.formatted_phone_number);
 		content += createDisplayFor('Address', place.formatted_address);
 		if (place.website) {
@@ -94,40 +94,27 @@ marina.googleMap = function(options) {
 		});
 	}
 
-	function createInfoBox(options) {
-		var infoBoxOptions = {
-			content: options.content,
-			disableAutoPan: options.disableAutoPan || false,
-			maxWidth: options.maxWidth || 0,
-			pixelOffset: options.pixelOffset || new google.maps.Size( - 100, 0),
-			zIndex: options.zIndex || null,
-			boxStyle: options.boxStype || {
-				background: "url('images/tipbox-200.png') no-repeat",
-				opacity: 0.75,
-				width: "200px"
-			},
-			closeBoxMargin: options.closeBoxMargin || "10px 2px 2px 2px",
-			closeBoxURL: options.closeBoxURL || "images/close.png",
-			infoBoxClearance: options.infoBoxClearance || new google.maps.Size(45, 20),
-			isHidden: options.isHidden || false,
-			pane: options.pane || "floatPane",
-			enableEventPropagation: options.enableEventPropagation || false
-		};
-		var ib = new InfoBox(infoBoxOptions);
-		ib.open(googleMap, options.marker);
-	}
-
 	function displayInfoWindowFor(place, marker) {
-		createInfoBox({
-      marker:  marker,
+		var options = {
 			content: createDetailContent(place),
-			pixelOffset: new google.maps.Size( - 80, 0),
+			disableAutoPan: false,
+			maxWidth: 0,
+			pixelOffset: new google.maps.Size(-80, 0),
+			zIndex: null,
 			boxStyle: {
 				background: "url('images/tipbox-160.png') no-repeat",
 				opacity: 0.75,
 				width: "180px"
-			}
-		});
+			},
+			closeBoxMargin: "10px 2px 2px 2px",
+			closeBoxURL: "images/close.png",
+			infoBoxClearance: new google.maps.Size(45, 20),
+			isHidden: false,
+			pane: "floatPane",
+			enableEventPropagation: false
+		};
+		var ib = new InfoBox(options);
+		ib.open(googleMap, marker);
 	}
 
 	function createMarker(place, options) {
@@ -213,19 +200,17 @@ marina.googleMap = function(options) {
 
 	var createMap = function() {
 		var latlng = new google.maps.LatLng(options.coords.latitude, options.coords.longitude);
-		var noPOIStyles = [{
-			featureType: "poi",
-			stylers: [{
-				visibility: "off"
-			}]
-		}];
+    var noPOIStyles = [{ 
+      featureType: "poi", 
+      stylers: [ { visibility: "off" } ] 
+    }]; 
 		var mapOptions = {
 			zoom: 12,
 			center: latlng,
 			mapTypeId: google.maps.MapTypeId.TERRAIN,
 			mapTypeControl: false,
 			streetViewControl: false,
-			styles: noPOIStyles
+      styles: noPOIStyles
 		};
 		googleMap = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 		infoWindow = new google.maps.InfoWindow();
