@@ -51,7 +51,7 @@ marina.googleMap = function(options) {
 					width: "200px"
 				},
 				closeBoxMargin: "10px 2px 2px 2px",
-				closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+				closeBoxURL: "images/close.png",
 				infoBoxClearance: new google.maps.Size(45, 20),
 				isHidden: false,
 				pane: "floatPane",
@@ -107,7 +107,7 @@ marina.googleMap = function(options) {
 				width: "180px"
 			},
 			closeBoxMargin: "10px 2px 2px 2px",
-			closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+			closeBoxURL: "images/close.png",
 			infoBoxClearance: new google.maps.Size(45, 20),
 			isHidden: false,
 			pane: "floatPane",
