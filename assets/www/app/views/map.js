@@ -24,7 +24,7 @@ marina.googleMap = function(options) {
 			preserveViewport: true,
 			suppressInfoWindows: true
 		};
-		var marinaLayer = new google.maps.KmlLayer('https://maps.google.com/maps/ms?ie=UTF8&authuser=0&msa=0&output=kml&msid=217422876588338854635.0004c133df227ae5aa19c', marinaLayerOptions);
+		var marinaLayer = new google.maps.KmlLayer(marinaConfig.google.maps.marinaMapURL, marinaLayerOptions);
 		marinaLayer.setMap(googleMap);
 		google.maps.event.addListener(marinaLayer, 'status_changed', function() {
 			marina.util.stopSpinner();
