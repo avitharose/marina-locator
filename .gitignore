@@ -6,3 +6,4 @@ gen/
 bin/
 *.keystore
 .DS_Store
+config.js
