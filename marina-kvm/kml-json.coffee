@@ -13,7 +13,8 @@ findMarkers = (xml) ->
     marinas.push
       name: $(this).find('name').text()
       position: createPosition $(this).find('Point coordinates').text()
-  console.log marinas
+      description: $(this).find('description').html()
+  fs.writeFile './marinas.js', 'marina.marinas = ' + JSON.stringify(marinas), 'utf8'
 
 parseKml = (err, data) ->
   if err
