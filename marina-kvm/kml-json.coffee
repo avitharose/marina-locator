@@ -3,7 +3,6 @@ fs = require 'fs'
 marinas = []
 
 createPosition = (coords) ->
-  console.log coords
   [lat,lng] = coords.split ','
   position =
     latitude: lat,
