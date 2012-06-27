@@ -1,9 +1,20 @@
-$ = require 'jQuery'
-fs= require 'fs'
+$  = require 'jQuery'
+fs = require 'fs'
+marinas = []
+
+createPosition = (coords) ->
+  console.log coords
+  [lat,lng] = coords.split ','
+  position =
+    latitude: lat,
+    longitude: lng
 
 findMarkers = (xml) ->
   xml.find('Placemark').each ()->
-    console.log $(this).find('name').text()
+    marinas.push
+      name: $(this).find('name').text()
+      position: createPosition $(this).find('Point coordinates').text()
+  console.log marinas
 
 parseKml = (err, data) ->
   if err
@@ -11,6 +22,4 @@ parseKml = (err, data) ->
   findMarkers $(data)
 
 fs.readFile './Marinas.kml', 'utf8', parseKml
-
-console.log 'ending'
 
