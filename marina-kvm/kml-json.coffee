@@ -3,7 +3,7 @@ fs = require 'fs'
 marinas = []
 
 createPosition = (coords) ->
-  [lat,lng] = coords.split ','
+  [lng,lat] = coords.split ','
   position =
     latitude: lat,
     longitude: lng
@@ -13,7 +13,7 @@ findMarkers = (xml) ->
     marinas.push
       name: $(this).find('name').text()
       position: createPosition $(this).find('Point coordinates').text()
-      description: $(this).find('description').html()
+      description: $(this).find('description').html()[0...-2]
   fs.writeFile './marinas.js', 'marina.marinas = ' + JSON.stringify(marinas), 'utf8'
 
 parseKml = (err, data) ->

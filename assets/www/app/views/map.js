@@ -19,31 +19,31 @@ marina.googleMap = function(options) {
 		navigator.geolocation.watchPosition(map.positionChanged);
 	};
 
+	function addMarinaMarker(marinaInfo) {
+		var marker, content;
+		console.log('adding marker for ' + marinaInfo.name);
+		marker = new google.maps.Marker({
+			icon: 'images/red-anchor.png',
+			map: googleMap,
+			position: new google.maps.LatLng(marinaInfo.position.latitude, marinaInfo.position.longitude)
+		});
+		content = '<div id="details"><h3>' + marinaInfo.name + '</h3>';
+		content += marinaInfo.description;
+		content += '</div>';
+		google.maps.event.addListener(marker, 'click', function(event) {
+			createInfoBox({
+				content: content,
+				marker: marker
+			});
+		});
+	}
+
 	map.addMarinaLayer = function() {
-		var marinaLayerOptions = {
-			preserveViewport: true,
-			suppressInfoWindows: true
-		};
-		var marinaLayer = new google.maps.KmlLayer(marinaConfig.google.maps.marinaMapURL, marinaLayerOptions);
-		marinaLayer.setMap(googleMap);
-		google.maps.event.addListener(marinaLayer, 'status_changed', function() {
-			marina.util.stopSpinner();
-		});
-
-		google.maps.event.addListener(marinaLayer, 'click', function(event) {
-      var featureData = event.featureData;
-      featureData.getPosition = function() {
-        return event.latLng;
-      };
-
-      // console.log(featureData.infoWindowHtml);
-      var content = '<div id="details">' + featureData.infoWindowHtml + '</div>';
-
-      createInfoBox({
-        content: content,
-        marker: featureData
-      });
-		});
+		var cnt, marinaInfo, marker, content;
+		for (cnt = 0; cnt < marina.marinas.length; cnt++) {
+			addMarinaMarker(marina.marinas[cnt]);
+		}
+		marina.util.stopSpinner();
 	};
 
 	function createDisplayFor(label, value) {
@@ -55,7 +55,7 @@ marina.googleMap = function(options) {
 	function createDetailContent(place) {
 		var content = '<div id="details">';
 		content += '<h3>' + place.name + '</h3>';
-    content += '<div><h2>Rating</h2><img alt="' + place.rating + '" src="images/ratings/' + place.rating + '-stars.png"></img>';
+		content += '<div><h2>Rating</h2><img alt="' + place.rating + '" src="images/ratings/' + place.rating + '-stars.png"></img>';
 		content += createDisplayFor('Phone', place.formatted_phone_number);
 		content += createDisplayFor('Address', place.formatted_address);
 		if (place.website) {
@@ -78,12 +78,12 @@ marina.googleMap = function(options) {
 		});
 	}
 
-  function createInfoBox(options) {
+	function createInfoBox(options) {
 		var defaults = {
 			content: options.content,
 			disableAutoPan: false,
 			maxWidth: 0,
-			pixelOffset: options.pixelOffset || new google.maps.Size(-100, 0),
+			pixelOffset: options.pixelOffset || new google.maps.Size( - 100, 0),
 			zIndex: null,
 			boxStyle: options.boxStyle || {
 				background: "url('images/tipbox-200.png') no-repeat",
@@ -99,19 +99,19 @@ marina.googleMap = function(options) {
 		};
 		var ib = new InfoBox(defaults);
 		ib.open(googleMap, options.marker);
-  }
+	}
 
 	function displayInfoWindowFor(place, marker) {
-    createInfoBox({
-      marker: marker,
+		createInfoBox({
+			marker: marker,
 			content: createDetailContent(place),
-			pixelOffset: new google.maps.Size(-80, 0),
+			pixelOffset: new google.maps.Size( - 80, 0),
 			boxStyle: {
 				background: "url('images/tipbox-160.png') no-repeat",
 				opacity: 0.75,
 				width: "180px"
 			}
-    });
+		});
 	}
 
 	function createMarker(place, options) {
@@ -197,17 +197,19 @@ marina.googleMap = function(options) {
 
 	var createMap = function() {
 		var latlng = new google.maps.LatLng(options.coords.latitude, options.coords.longitude);
-    var noPOIStyles = [{ 
-      featureType: "poi", 
-      stylers: [ { visibility: "off" } ] 
-    }]; 
+		var noPOIStyles = [{
+			featureType: "poi",
+			stylers: [{
+				visibility: "off"
+			}]
+		}];
 		var mapOptions = {
 			zoom: 12,
 			center: latlng,
 			mapTypeId: google.maps.MapTypeId.TERRAIN,
 			mapTypeControl: false,
 			streetViewControl: false,
-      styles: noPOIStyles
+			styles: noPOIStyles
 		};
 		googleMap = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 		infoWindow = new google.maps.InfoWindow();
