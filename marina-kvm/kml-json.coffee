@@ -1,12 +1,16 @@
 $ = require 'jQuery'
 fs= require 'fs'
 
-parseHtml = (err, data) ->
+findMarkers = (xml) ->
+  xml.find('Placemark').each ()->
+    console.log $(this).find('name').text()
+
+parseKml = (err, data) ->
   if err
     throw err
-  console.log data
+  findMarkers $(data)
 
-fs.readFile './Marinas.kml', 'utf8', parseHtml
+fs.readFile './Marinas.kml', 'utf8', parseKml
 
 console.log 'ending'
 
