@@ -13,6 +13,8 @@ describe('Google Map', function() {
   var options = {}, latlng, googleMap, currentLocation, mapOptions;
 
   beforeEach(function() {
+    marina.marinas = [];
+    marina.util.stopSpinner = jasmine.createSpy();
     mapOptions = jasmine.createSpy();
     mapOptions.bind = jasmine.createSpy();
     $ = function(id) {
@@ -77,15 +79,6 @@ describe('Google Map', function() {
   it('should be a terrain map', function() {
     marina.googleMap(options);
     expect(google.maps.Map.mostRecentCall.args[1].mapTypeId).toEqual(google.maps.MapTypeId.TERRAIN);
-  });
-
-  describe('marina layer', function() {
-    
-    it('should be on the google map', function() {
-      marina.googleMap(options);
-      expect(google.maps.KmlLayer.prototype.setMap).toHaveBeenCalled();
-    });
-    
   });
 
   describe('on position change', function() {
