@@ -1,7 +1,7 @@
-var navigator = {}, coords, mapCanvas = 'map_canvas';
+var navigator = {}, coords, mapCanvas = 'map_canvas', mapOptions;
 
 describe('Main view', function() {
-  var div = {}, $arg;
+  var $arg;
 
   beforeEach(function() {
     marina.util = function() {
@@ -13,13 +13,9 @@ describe('Main view', function() {
       return util;
     }();
 
-    div.html = jasmine.createSpy();
-    $ = function(id) {
-      $arg = id;
-      return div;
-    };
+    setFixtures('<select id="map-options"><option value="opt1">Opt1</option></select>');
+    appendSetFixtures('<div id="map_canvas"></div>');
 
-    div.multiselect = jasmine.createSpy();
   });
 
   it('should exists', function() {
@@ -51,7 +47,8 @@ describe('Main view', function() {
         }
       };
       marina.views.main().show();
-      expect(div.multiselect).toHaveBeenCalled();
+      console.log('opts text: ' + $('#map-options').parent().text());
+      expect($("#map-options").multiselect("widget").find(":checkbox").length).toEqual(1);
     });
 
     it('should create map with coords when geo available', function() {
@@ -84,12 +81,7 @@ describe('Main view', function() {
 
     it('should show disconnected message in #map_canvas', function() {
       marina.views.main().show();
-      expect($arg).toEqual('#' + mapCanvas);
-    });
-
-    it('should show disconnected message as html', function() {
-      marina.views.main().show();
-      expect(div.html).toHaveBeenCalled();
+      expect($('#map_canvas').text()).toEqual('No connection!');
     });
 
   });

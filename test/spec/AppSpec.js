@@ -1,12 +1,9 @@
-var fakeElement = jasmine.createSpy(), appCallback, $ = function(func) {
-  appCallback = func;
-  return fakeElement;
-};
+var fakeElement = jasmine.createSpy(), appCallback;
 
 var document = function() {
 };
 
-describe("App startupn", function() {
+describe("App startup", function() {
 
   var view = {}, origMain;
 
@@ -26,12 +23,12 @@ describe("App startupn", function() {
   });
 
   it("should listen for deviceReady", function() {
-    appCallback();
+    marina.startup();
     expect(document.addEventListener).toHaveBeenCalled();
   });
 
   it("should show main view on deviceReady event", function() {
-    appCallback();
+    marina.startup();
     document.addEventListener.mostRecentCall.args[1]();
     expect(marina.views.main).toHaveBeenCalled();
     expect(view.show).toHaveBeenCalled();

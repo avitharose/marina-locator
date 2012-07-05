@@ -13,10 +13,11 @@ marina.filter = function() {
   };
 
   filter.byDescription = function(values, criteria) {
-    var filtered = [], cnt, value;
+    var filtered = [], cnt, value, description;
     for(cnt = 0; cnt < values.length; cnt++) {
       value = values[cnt];
-      if (value.description.match(new RegExp(criteria, 'gi'))) {
+      description = $(value.description).text();
+      if (description.match(new RegExp(criteria, 'gi'))) {
         filtered.push(value);
       }
     }
