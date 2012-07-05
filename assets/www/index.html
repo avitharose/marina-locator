@@ -27,10 +27,13 @@
   <body>
     <div id="header">
       <div id="spinner" class="spinner"></div>
-      <select title="Map Options" multiple="multiple" id="map-options" size="5">
-        <option value="restaurant" data-image="reddot">Restaurants</option>
-        <option value="grocery_or_supermarket" data-image="bluedot">Groceries</option>
-      </select>
+      <a class='ui-button' data-button="home"><img class="ui-button" src="images/home.png"></img></a>
+      <span class='fill-remaining'>
+        <select title="Map Options" multiple="multiple" id="map-options" size="5">
+          <option value="restaurant" data-image="reddot">Restaurants</option>
+          <option value="grocery_or_supermarket" data-image="bluedot">Groceries</option>
+        </select>
+      </span>
     </div>
     <div id="map_canvas"></div>
   </body>

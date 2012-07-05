@@ -26,6 +26,14 @@ marina.views.main = function() {
         geoFail(err);
       }
     };
+
+    view.home = function() {
+      navigator.geolocation.getCurrentPosition(marina.map.center, function(e) {
+        console.log('no geolocation available');
+        marina.map.center(view.defaultPosition);
+      });
+    };
+
     return view;
   }();
 
@@ -35,6 +43,7 @@ marina.views.main = function() {
       console.log('disconnected');
       $('#map_canvas').html('No connection!');
     };
+    view.home = $.noop();
     return view;
   }();
 
@@ -56,6 +65,21 @@ marina.views.main = function() {
     }
   };
 
+  var createButtons = function() {
+    $('[data-button]').each(function() {
+      $(this).click(function() {
+        view()[$(this).data('button')]();
+      });
+    });
+  };
+ 
+  var view = function() {
+    if (marina.util.isConnected()) {
+      return connectedView;
+    }
+    return disconnectedView;
+  };
+
   return function() {
     console.log('return main view state function');
     return function() {
@@ -63,11 +87,9 @@ marina.views.main = function() {
       console.log('adding main view envent listerners for state');
       document.addEventListener("online", connectedView.show, false);
       document.addEventListener("offline", disconnectedView.show, false);
+      createButtons();
       console.log('main state function');
-      if (marina.util.isConnected()) {
-        return connectedView;
-      }
-      return disconnectedView;
+      return view();
     };
   }();
 }();

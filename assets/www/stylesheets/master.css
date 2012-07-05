@@ -50,12 +50,14 @@ html, body {
   z-index: 999999;
 }
 
+.fill-remaining {
+  display: block;
+  overflow: hidden;
+  padding: 0 4px 0 2px;
+}
+
 #map-options {
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: inline;
-  width: 100%;
+  width: 90%;
 }
 
 #map_canvas {
@@ -75,3 +77,11 @@ html, body {
 .ui-multiselect-checkboxes li { 
   font-size: 1.4em;
 }
+
+.ui-button {
+  float: left;
+  height: 20px;
+  width: 20px;
+  padding: 2px;
+}
+
