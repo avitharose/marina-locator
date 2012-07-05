@@ -4,9 +4,15 @@ describe('marina filter', function() {
 
   beforeEach(function() {
 		marina.marinas = [
-      { name: 'mega marina' },
-      { name: 'marina for mega yachts' },
-		  { name: 'mini marina' }
+      { 
+        name: 'mega marina',
+        description: '<div><ul><li><font>">Guest moorage</font></li></ul></div>'
+      },
+      { name: 'marina for mega yachts', description: '<div id="Guest">blah</div>' },
+		  { 
+        name: 'mini marina',
+        description: '<div><ul><li><font>">guest moorage</font></li></ul></div>'
+      }
     ];
   });
 
@@ -23,6 +29,20 @@ describe('marina filter', function() {
 		});
 
 	});
+
+  describe('description filter', function() {
+
+		it('should find a marina where the description contain criteria', function() {
+			var filteredMarinas = marina.filter.byDescription(marina.marinas, 'Guest moorage');
+			expect(filteredMarinas[0].name).toEqual('mega marina');
+		});
+
+		it('should find a marina where the description contain criteria regardless of case', function() {
+			var filteredMarinas = marina.filter.byDescription(marina.marinas, 'Guest moorage');
+			expect(filteredMarinas[1].name).toEqual('mini marina');
+		});
+
+  });
 
 });
 
