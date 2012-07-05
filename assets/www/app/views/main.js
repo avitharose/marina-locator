@@ -35,6 +35,10 @@ marina.views.main = function() {
     };
 
     view.search = function() {
+      var filtered = marina.marinas.filterBy('wireless');
+      $.each(filtered, function(index, marina) {
+        console.log(marina.name);
+      });
     };
 
     return view;

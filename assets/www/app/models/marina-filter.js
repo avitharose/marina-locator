@@ -33,6 +33,10 @@ marina.filter = function() {
   filter.byDescription = function(values, criteria) {
     return filterBy(filter.descriptionMatches, values, criteria);
   };
+  
+  marina.marinas.filterBy = function(criteria) {
+    return filter.byAll(marina.marinas, criteria);
+  };
 
   return filter;
 
