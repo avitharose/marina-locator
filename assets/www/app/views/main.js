@@ -34,6 +34,9 @@ marina.views.main = function() {
       });
     };
 
+    view.search = function() {
+    };
+
     return view;
   }();
 

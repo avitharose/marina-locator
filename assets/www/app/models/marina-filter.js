@@ -12,13 +12,7 @@ marina.filter = function() {
   filter.byAll = function(values, criteria) {
     var byName = filter.byName(values, criteria);
     var byDesc = filter.byDescription(values, criteria);
-    var cnt = 0;
-    $.each(byDesc, function(index, value) {
-      if(byName.indexOf(value) === -1) {
-        byName.push(value);
-      }
-    });
-    return byName;
+    return _.union(byName, byDesc);
   };
 
   var filterBy = function(matcher, values, criteria) {
