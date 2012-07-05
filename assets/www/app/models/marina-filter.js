@@ -21,26 +21,23 @@ marina.filter = function() {
     return byName;
   };
 
-  filter.byName = function(values, criteria) {
+  var filterBy = function(matcher, values, criteria) {
     var filtered = [], cnt, value;
     for(cnt = 0; cnt < values.length; cnt++) {
       value = values[cnt];
-      if (filter.nameMatches(value, criteria)) {
+      if (matcher(value, criteria)) {
         filtered.push(value);
       }
     }
     return filtered;
   };
 
+  filter.byName = function(values, criteria) {
+    return filterBy(filter.nameMatches, values, criteria);
+  };
+
   filter.byDescription = function(values, criteria) {
-    var filtered = [], cnt, value, description;
-    for(cnt = 0; cnt < values.length; cnt++) {
-      value = values[cnt];
-      if (filter.descriptionMatches(value, criteria)) {
-        filtered.push(value);
-      }
-    }
-    return filtered;
+    return filterBy(filter.descriptionMatches, values, criteria);
   };
 
   return filter;
