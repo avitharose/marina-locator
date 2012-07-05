@@ -53,11 +53,10 @@ html, body {
 .fill-remaining {
   display: block;
   overflow: hidden;
-  padding: 0 4px 0 2px;
+  padding: 0 4px 0 6px;
 }
 
 #map-options {
-  width: 90%;
 }
 
 #map_canvas {
