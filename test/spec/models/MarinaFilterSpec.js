@@ -10,13 +10,24 @@ describe('marina filter', function() {
       },
       { 
         name: 'marina for mega yachts',
-        description: '<div id="Guest">blah</div>'
+        description: '<div id="Guest">big</div>'
       },
 		  { 
-        name: 'mini marina',
+        name: 'big marina',
         description: '<div><ul><li><font>">guest moorage</font></li></ul></div>'
       }
     ];
+
+  });
+
+  describe('by all field filter', function() {
+
+    it('should find marina where name or description contains criteria', function() {
+			var filteredMarinas = marina.filter.byAll(marina.marinas, 'big');
+			// expect(filteredMarinas.length).toEqual(2);
+			expect(filteredMarinas[0].name).toEqual('big marina');
+			expect(filteredMarinas[1].name).toEqual('marina for mega yachts');
+    });
 
   });
 
@@ -43,7 +54,7 @@ describe('marina filter', function() {
 
 		it('should find a marina where the description contain criteria regardless of case', function() {
 			var filteredMarinas = marina.filter.byDescription(marina.marinas, 'Guest moorage');
-			expect(filteredMarinas[1].name).toEqual('mini marina');
+			expect(filteredMarinas[1].name).toEqual('big marina');
 		});
 
 		it('should not find a marina where the html tag contains criteria', function() {
