@@ -5,7 +5,7 @@ marina.filter = function() {
     var filtered = [], cnt, value;
     for(cnt = 0; cnt < values.length; cnt++) {
       value = values[cnt];
-      if (value.name.match(criteria)) {
+      if (value.name.match(new RegExp(criteria, 'gi'))) {
         filtered.push(value);
       }
     }
