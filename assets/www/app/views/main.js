@@ -35,7 +35,14 @@ marina.views.main = function() {
     };
 
     view.search = function() {
-      var filtered = marina.marinas.filterBy('wireless');
+      console.log('open search dialog');
+      $('#search-criteria-template').dialog('open');
+    };
+
+    view.performSearch = function() {
+      $('#search-criteria-template').dialog('close');
+      console.log('searching for: ' + $('#search-criteria').val());
+      var filtered = marina.marinas.filterBy($('#search-criteria').val());
       $.each(filtered, function(index, marina) {
         console.log(marina.name);
       });
@@ -73,10 +80,22 @@ marina.views.main = function() {
   };
 
   var createButtons = function() {
+    console.log('create buttons');
     $('[data-button]').each(function() {
       $(this).click(function() {
         view()[$(this).data('button')]();
       });
+    });
+  };
+
+  var createDialogs = function() {
+    console.log('create search dialog');
+    $('#search-criteria-template').dialog({
+      title: 'Enter search critiera',
+      modal: true,
+      draggable: false,
+      resizeable: false,
+      autoOpen: false
     });
   };
  
@@ -91,10 +110,12 @@ marina.views.main = function() {
     console.log('return main view state function');
     return function() {
       enhanceOptionSelect();
+      console.log('create dialogs');
+      createDialogs();
+      createButtons();
       console.log('adding main view envent listerners for state');
       document.addEventListener("online", connectedView.show, false);
       document.addEventListener("offline", disconnectedView.show, false);
-      createButtons();
       console.log('main state function');
       return view();
     };

@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Marina Locator</title>
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/ui-lightness/jquery-ui.css" type="text/css" media="screen" title="no title">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/ui-lightness/jquery-ui.css" type="text/css" media="screen" title="no title">
     <link rel="stylesheet" href="stylesheets/jquery.multiselect.css" type="text/css" media="screen" title="no title">
     <link rel="stylesheet" href="stylesheets/master.css" type="text/css" media="screen" title="no title">
     <meta name="viewport" content="width=device-width; height=device-height; user-scalable=no" />
@@ -10,7 +10,7 @@
     <script type="text/javascript" src="lib/cordova-1.7.0.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js"></script>
     <script type="text/javascript" src="lib/jquery.multiselect.min.js"></script>
     <script type="text/javascript" src="lib/spin.min.js"></script>
     <script type="text/javascript" src="lib/underscore-min.js"></script>
@@ -39,5 +39,11 @@
       </span>
     </div>
     <div id="map_canvas"></div>
+<!-- templates -->
+    <div id="dialog" class="hidden"></div>
+    <div id="search-criteria-template">
+      <input id="search-criteria"></input>
+      <a class="dialog-button" data-button="performSearch"><img src="images/search.png"></img></a>
+    </div>
   </body>
 </html>
