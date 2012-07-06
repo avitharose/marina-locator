@@ -85,5 +85,6 @@ html, body {
 }
 
 .dialog-button {
+  float: right;
   padding: 2px;
 }
