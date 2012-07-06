@@ -46,6 +46,14 @@ marina.views.main = function() {
       $.each(filtered, function(index, marina) {
         console.log(marina.name);
       });
+
+      if (filtered.length === 1) {
+        console.log('go to found item');
+        marina.map.center({ coords: { 
+          latitude: filtered[0].position.latitude,
+          longitude: filtered[0].position.longitude
+        } });
+      }
     };
 
     return view;
