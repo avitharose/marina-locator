@@ -51,16 +51,15 @@ marina.views.main = function() {
       var searchResultsDialog = $('<div></div>');
       $.each(filtered, function(index, marina) {
         console.log(marina.name);
-        searchResultsDialog.append('<li>' + marina.name + '</li>');
+        searchResultsDialog.append('<h3>' + marina.name + '</h3>');
       });
       searchResultsDialog.dialog({
-        title: 'Enter search critiera',
+        title: 'Search results',
         modal: true,
         draggable: false,
         resizeable: false,
         autoOpen: true
       });
-      // searchResultsDialog.dialog('open');
     };
 
     return view;
