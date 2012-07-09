@@ -52,6 +52,7 @@ marina.views.main = function() {
       $.each(filtered, function(index, marina) {
         console.log(marina.name);
         searchResultsDialog.append('<h3>' + marina.name + '</h3>');
+        // add button here with marina object as data - change buttons function to use this object
       });
       searchResultsDialog.dialog({
         title: 'Search results',
