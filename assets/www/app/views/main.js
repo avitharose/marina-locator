@@ -47,17 +47,20 @@ marina.views.main = function() {
       searchCriteriaDialog().dialog('close');
       console.log('searching for: ' + $('#search-criteria').val());
       var filtered = marina.marinas.filterBy($('#search-criteria').val());
+
+      var searchResultsDialog = $('<div></div>');
       $.each(filtered, function(index, marina) {
         console.log(marina.name);
+        searchResultsDialog.append('<li>' + marina.name + '</li>');
       });
-// 
-//       if (filtered.length === 1) {
-//         console.log('go to found item');
-//         marina.map.center({ coords: { 
-//           latitude: filtered[0].position.latitude,
-//           longitude: filtered[0].position.longitude
-//         } });
-//       }
+      searchResultsDialog.dialog({
+        title: 'Enter search critiera',
+        modal: true,
+        draggable: false,
+        resizeable: false,
+        autoOpen: true
+      });
+      // searchResultsDialog.dialog('open');
     };
 
     return view;
