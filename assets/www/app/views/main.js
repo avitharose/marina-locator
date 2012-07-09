@@ -1,5 +1,9 @@
 marina.views.main = function() {
 
+  var searchCriteriaDialog = function() {
+    return $('#search-criteria-dialog');
+  };
+
   var connectedView = function() {
 
     var view = {}; 
@@ -36,11 +40,11 @@ marina.views.main = function() {
 
     view.search = function() {
       console.log('open search dialog');
-      $('#search-criteria-dialog').dialog('open');
+      searchCriteriaDialog().dialog('open');
     };
 
     view.performSearch = function() {
-      $('#search-criteria-dialog').dialog('close');
+      searchCriteriaDialog().dialog('close');
       console.log('searching for: ' + $('#search-criteria').val());
       var filtered = marina.marinas.filterBy($('#search-criteria').val());
       $.each(filtered, function(index, marina) {
@@ -99,7 +103,7 @@ marina.views.main = function() {
 
   var createDialogs = function() {
     console.log('create search dialog');
-    $('#search-criteria-dialog').dialog({
+    searchCriteriaDialog().dialog({
       title: 'Enter search critiera',
       modal: true,
       draggable: false,
