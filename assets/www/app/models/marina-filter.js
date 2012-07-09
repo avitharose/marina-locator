@@ -16,14 +16,7 @@ marina.filter = function() {
   };
 
   var filterBy = function(matcher, values, criteria) {
-    var filtered = [], cnt, value;
-    for(cnt = 0; cnt < values.length; cnt++) {
-      value = values[cnt];
-      if (matcher(value, criteria)) {
-        filtered.push(value);
-      }
-    }
-    return filtered;
+    return _(values).filter(function(value) { return matcher(value, criteria); });
   };
 
   filter.byName = function(values, criteria) {
