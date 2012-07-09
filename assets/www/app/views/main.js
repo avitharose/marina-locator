@@ -36,11 +36,11 @@ marina.views.main = function() {
 
     view.search = function() {
       console.log('open search dialog');
-      $('#search-criteria-template').dialog('open');
+      $('#search-criteria-dialog').dialog('open');
     };
 
     view.performSearch = function() {
-      $('#search-criteria-template').dialog('close');
+      $('#search-criteria-dialog').dialog('close');
       console.log('searching for: ' + $('#search-criteria').val());
       var filtered = marina.marinas.filterBy($('#search-criteria').val());
       $.each(filtered, function(index, marina) {
@@ -66,6 +66,7 @@ marina.views.main = function() {
       $('#map_canvas').html('No connection!');
     };
     view.home = $.noop();
+    view.search = connectedView.search();
     return view;
   }();
 
@@ -98,7 +99,7 @@ marina.views.main = function() {
 
   var createDialogs = function() {
     console.log('create search dialog');
-    $('#search-criteria-template').dialog({
+    $('#search-criteria-dialog').dialog({
       title: 'Enter search critiera',
       modal: true,
       draggable: false,
