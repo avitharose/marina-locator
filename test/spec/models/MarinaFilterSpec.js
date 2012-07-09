@@ -1,5 +1,3 @@
-marina.marinas = {};
-
 describe('marina filter', function() {
 
   beforeEach(function() {
@@ -24,7 +22,6 @@ describe('marina filter', function() {
 
     it('should find marina where name or description contains criteria', function() {
 			var filteredMarinas = marina.filter.byAll(marina.marinas, 'big');
-			// expect(filteredMarinas.length).toEqual(2);
 			expect(filteredMarinas[0].name).toEqual('big marina');
 			expect(filteredMarinas[1].name).toEqual('marina for mega yachts');
     });

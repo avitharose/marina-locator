@@ -27,9 +27,13 @@ marina.filter = function() {
     return filterBy(filter.descriptionMatches, values, criteria);
   };
   
-  marina.marinas.filterBy = function(criteria) {
-    return filter.byAll(marina.marinas, criteria);
-  };
+  if (marina.marinas) {
+    marina.marinas.filterBy = function(criteria) {
+      return filter.byAll(marina.marinas, criteria);
+    };
+  } else {
+    console.log('No marinas defined, filtering not implemented');
+  }
 
   return filter;
 
