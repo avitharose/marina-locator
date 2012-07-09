@@ -1,4 +1,4 @@
-var marina = {};
+marina.marinas = {};
 
 describe('marina filter', function() {
 
