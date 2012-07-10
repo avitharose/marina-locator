@@ -196,8 +196,11 @@ marina.googleMap = function(options) {
 		google.maps.event.addListener(googleMap, 'zoom_changed', updateOptionMarkers);
 	};
 
-  map.center = function(options) {
+  map.center = function(options, callback) {
 		var latlng = new google.maps.LatLng(options.coords.latitude, options.coords.longitude);
+    if (callback) {
+      google.maps.event.addListenerOnce(googleMap, 'center_changed', callback);
+    }
     googleMap.setCenter(latlng);
   };
 

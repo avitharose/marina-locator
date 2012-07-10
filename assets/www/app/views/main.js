@@ -82,8 +82,9 @@ marina.views.main = function() {
     view.centerMapAt = function(location) {
       console.log('center map at ' + location.name);
       searchResultsDialog.dialog('close');
-      marina.map.center({ coords: location.position }); 
-      google.maps.event.trigger(location.mapMarker, 'click');
+      marina.map.center({ coords: location.position }, function() { 
+        google.maps.event.trigger(location.mapMarker, 'click');
+      });
     };
 
     return view;
