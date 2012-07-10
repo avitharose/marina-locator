@@ -6,6 +6,13 @@ marina.views.main = function() {
 
   var searchResultsDialog = {};
 
+  var buttonize = function(button) {
+    button.click(function() {
+      var param = button.data('button-param');
+      view()[button.data('button')](param);
+    });
+  };
+
   var connectedView = function() {
 
     var view = {}; 
@@ -119,13 +126,6 @@ marina.views.main = function() {
     } catch(err) {
       console.log('Error enhancing options: ' + err);
     }
-  };
-
-  var buttonize = function(button) {
-    button.click(function() {
-      var param = button.data('button-param');
-      view()[button.data('button')](param);
-    });
   };
 
   var createButtons = function() {
