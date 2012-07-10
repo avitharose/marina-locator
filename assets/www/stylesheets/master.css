@@ -93,3 +93,19 @@ html, body {
   display: inline;
 }
 
+.mobile-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.mobile-list li {
+  height: 34px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.mobile-list li img {
+  float: right;
+  padding-left: 5px;
+  padding-right: 5px;
+}
