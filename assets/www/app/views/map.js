@@ -36,6 +36,7 @@ marina.googleMap = function(options) {
 				marker: marker
 			});
 		});
+    marinaInfo.mapMarker = marker;
 	}
 
 	map.addMarinaLayer = function() {

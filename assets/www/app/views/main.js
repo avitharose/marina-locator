@@ -68,10 +68,11 @@ marina.views.main = function() {
       });
     };
 
-    view.centerMapAt = function(marker) {
-      console.log('center map at ' + marker.name);
+    view.centerMapAt = function(location) {
+      console.log('center map at ' + location.name);
       searchResultsDialog.dialog('close');
-      marina.map.center({ coords: marker.position }); 
+      marina.map.center({ coords: location.position }); 
+      google.maps.event.trigger(location.mapMarker, 'click');
     };
 
     return view;
