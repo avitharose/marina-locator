@@ -88,3 +88,8 @@ html, body {
   float: right;
   padding: 2px;
 }
+
+.search-action {
+  display: inline;
+}
+

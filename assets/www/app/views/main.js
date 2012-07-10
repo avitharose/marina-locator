@@ -4,6 +4,8 @@ marina.views.main = function() {
     return $('#search-criteria-dialog');
   };
 
+  var searchResultsDialog = {};
+
   var connectedView = function() {
 
     var view = {}; 
@@ -48,11 +50,14 @@ marina.views.main = function() {
       console.log('searching for: ' + $('#search-criteria').val());
       var filtered = marina.marinas.filterBy($('#search-criteria').val());
 
-      var searchResultsDialog = $('<div></div>');
+      searchResultsDialog = $('<div></div>');
       $.each(filtered, function(index, marina) {
         console.log(marina.name);
         searchResultsDialog.append('<h3>' + marina.name + '</h3>');
-        // add button here with marina object as data - change buttons function to use this object
+        var centerMapButton = $('<img src="images/arrow_right_48.png"></img>');
+        centerMapButton.addClass('search-action').data('button', 'centerMapAt').data('button-param', marina);
+        buttonize(centerMapButton);
+        searchResultsDialog.append(centerMapButton);
       });
       searchResultsDialog.dialog({
         title: 'Search results',
@@ -61,6 +66,12 @@ marina.views.main = function() {
         resizeable: false,
         autoOpen: true
       });
+    };
+
+    view.centerMapAt = function(marker) {
+      console.log('center map at ' + marker.name);
+      searchResultsDialog.dialog('close');
+      marina.map.center({ coords: marker.position }); 
     };
 
     return view;
@@ -95,12 +106,17 @@ marina.views.main = function() {
     }
   };
 
+  var buttonize = function(button) {
+    button.click(function() {
+      var param = button.data('button-param');
+      view()[button.data('button')](param);
+    });
+  };
+
   var createButtons = function() {
     console.log('create buttons');
     $('[data-button]').each(function() {
-      $(this).click(function() {
-        view()[$(this).data('button')]();
-      });
+      buttonize($(this));
     });
   };
 
