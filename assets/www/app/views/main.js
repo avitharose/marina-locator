@@ -45,6 +45,13 @@ marina.views.main = function() {
       searchCriteriaDialog().dialog('open');
     };
 
+    var trim = function(value, size) {
+      if (value.length <= 20) {
+        return value;
+      }
+      return value.substring(0, 20) + '...';
+    };
+
     view.performSearch = function() {
       searchCriteriaDialog().dialog('close');
       console.log('searching for: ' + $('#search-criteria').val());
@@ -54,7 +61,7 @@ marina.views.main = function() {
       var searchResultsList = $('<ul class="mobile-list ui-widget"></ul>');
       $.each(filtered, function(index, marina) {
         console.log(marina.name);
-        var searchResultsItem = $('<li class="ui-widget-content">' + marina.name + '</li>'); 
+        var searchResultsItem = $('<li class="ui-widget-content">' + trim(marina.name) + '</li>'); 
         var centerMapButton = $('<img src="images/arrow.png"></img>');
         centerMapButton.data('button', 'centerMapAt').data('button-param', marina);
         searchResultsItem.append(centerMapButton);
