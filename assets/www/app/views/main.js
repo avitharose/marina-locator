@@ -98,6 +98,8 @@ marina.views.main = function() {
     };
     view.home = $.noop();
     view.search = connectedView.search();
+    view.performSearch = connectedView.performSearch();
+    view.centerMapAt = $.noop();
     return view;
   }();
 
