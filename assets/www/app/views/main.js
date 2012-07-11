@@ -104,8 +104,8 @@ marina.views.main = function() {
       $('#map_canvas').html('No connection!');
     };
     view.home = $.noop();
-    view.search = connectedView.search();
-    view.performSearch = connectedView.performSearch();
+    view.search = connectedView.search;
+    view.performSearch = connectedView.performSearch;
     view.centerMapAt = $.noop();
     return view;
   }();
