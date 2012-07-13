@@ -68,20 +68,13 @@ marina.views.main = function() {
       return $(html);
     };
 
-    view.performSearch = function() {
-      searchCriteriaDialog().dialog('close');
-      console.log('searching for: ' + $('#search-criteria').val());
-      var filtered = marina.marinas.filterBy($.trim($('#search-criteria').val()));
-      filtered.trim = trim;
-
+    var showSearchResults = function(filtered) {
       searchResultsDialog = buildTemplate('#search-results-template', { marinas: filtered });
-      
       $.each(filtered, function(index, marina) {
         var button = searchResultsDialog.find('#marina' + index);
         button.data('button-param', marina);
         buttonize(button);
       });
-
       searchResultsDialog.dialog({
         title: 'Search results',
         modal: true,
@@ -89,6 +82,14 @@ marina.views.main = function() {
         resizeable: false,
         autoOpen: true
       });
+    };
+
+    view.performSearch = function() {
+      searchCriteriaDialog().dialog('close');
+      console.log('searching for: ' + $('#search-criteria').val());
+      var filtered = marina.marinas.filterBy($.trim($('#search-criteria').val()));
+      filtered.trim = trim;
+      showSearchResults(filtered);
     };
 
     view.centerMapAt = function(location) {
