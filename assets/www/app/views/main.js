@@ -59,9 +59,13 @@ marina.views.main = function() {
       return value.substring(0, 20) + '...';
     };
 
-    var retrieveTemplate = function(selector) {
-      console.log('template ' + selector + ': ' + $(selector).html());
-      return $($(selector).html());
+    var buildTemplate = function(selector, locals) {
+      var template = document.getElementById(selector).innerHTML;
+      console.log('template: ' + template);
+      var fn = jade.compile(template);
+      var html = fn(locals);
+      console.log('html: ' + html);
+      return $(html);
     };
 
     view.performSearch = function() {
@@ -70,13 +74,7 @@ marina.views.main = function() {
       var filtered = marina.marinas.filterBy($.trim($('#search-criteria').val()));
       filtered.trim = trim;
 
-      var template = document.getElementById('search-results-template').innerHTML;
-      console.log('template: ' + template);
-      var fn = jade.compile(template);
-      var locals = { marinas: filtered };
-      var html = fn(locals);
-      console.log('html: ' + html);
-      searchResultsDialog = $(html);
+      searchResultsDialog = buildTemplate('search-results-template', { marinas: filtered });
       
       $.each(filtered, function(index, marina) {
         var button = searchResultsDialog.find('#marina' + index);
