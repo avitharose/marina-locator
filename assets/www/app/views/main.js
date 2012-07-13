@@ -59,13 +59,17 @@ marina.views.main = function() {
       return value.substring(0, 20) + '...';
     };
 
+    var retrieveTemplate = function(selector) {
+      return $($(selector).html());
+    };
+
     view.performSearch = function() {
       searchCriteriaDialog().dialog('close');
       console.log('searching for: ' + $('#search-criteria').val());
       var filtered = marina.marinas.filterBy($('#search-criteria').val());
 
       searchResultsDialog = $('<div></div>');
-      var searchResultsList = $('<ul class="mobile-list ui-widget"></ul>');
+      var searchResultsList = retrieveTemplate('#mobile-list');
       $.each(filtered, function(index, marina) {
         console.log(marina.name);
         var searchResultsItem = $('<li class="ui-widget-content">' + trim(marina.name) + '</li>'); 
