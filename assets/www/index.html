@@ -14,6 +14,7 @@
     <script type="text/javascript" src="lib/jquery.multiselect.min.js"></script>
     <script type="text/javascript" src="lib/spin.min.js"></script>
     <script type="text/javascript" src="lib/underscore-min.js"></script>
+    <script type="text/javascript" src="lib/jade.js"></script>
     <script type="text/javascript" src="app/util/config.js"></script>
     <script>
       google.load("maps", "3", {other_params:'sensor=false&libraries=places&key=' + marinaConfig.google.maps.apiKey});
@@ -45,9 +46,24 @@
       <a class="dialog-button" data-button="performSearch"><img src="images/search.png"></img></a>
     </div>
 <!-- templates -->
+    <script id="search-results-template" type="text/template">
+#dialog
+  ul.mobile-list.ui-widget
+    each marina, cnt in marinas
+      li.ui-widget-content= marinas.trim(marina.name)
+        img(id="marina#{cnt}", data-button="centerMapAt", src="images/arrow.png")
+    </script>
     <div id="dialog" class="hidden"><div></div></div>
     <div id="mobile-list" class="hidden">
       <ul class="mobile-list ui-widget"></ul>
+    </div>
+    <div id="search-result-items" class="hidden">
+      <% _.each(marinas, function(marina) { %>
+        <li class="ui-widget-content">
+          <% trim(marina.name); %>
+          <img id="show-on-map" data-button-param="<% JSON.stringify(marina); %>" src="images/arrow.png"></img>
+        </li>
+      <% }); %>
     </div>
   </body>
 </html>

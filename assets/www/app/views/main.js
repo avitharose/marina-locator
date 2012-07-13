@@ -60,26 +60,29 @@ marina.views.main = function() {
     };
 
     var retrieveTemplate = function(selector) {
+      console.log('template ' + selector + ': ' + $(selector).html());
       return $($(selector).html());
     };
 
     view.performSearch = function() {
       searchCriteriaDialog().dialog('close');
       console.log('searching for: ' + $('#search-criteria').val());
-      var filtered = marina.marinas.filterBy($('#search-criteria').val());
+      var filtered = marina.marinas.filterBy($.trim($('#search-criteria').val()));
+      filtered.trim = trim;
 
-      searchResultsDialog = retrieveTemplate('#dialog');
-      var searchResultsList = retrieveTemplate('#mobile-list');
+      var template = document.getElementById('search-results-template').innerHTML;
+      console.log('template: ' + template);
+      var fn = jade.compile(template);
+      var locals = { marinas: filtered };
+      var html = fn(locals);
+      console.log('html: ' + html);
+      searchResultsDialog = $(html);
+      
       $.each(filtered, function(index, marina) {
-        console.log(marina.name);
-        var searchResultsItem = $('<li class="ui-widget-content">' + trim(marina.name) + '</li>'); 
-        var centerMapButton = $('<img src="images/arrow.png"></img>');
-        centerMapButton.data('button', 'centerMapAt').data('button-param', marina);
-        searchResultsItem.append(centerMapButton);
-        buttonize(centerMapButton);
-        searchResultsList.append(searchResultsItem);
+        var button = searchResultsDialog.find('#marina' + index);
+        button.data('button-param', marina);
+        buttonize(button);
       });
-      searchResultsDialog.append(searchResultsList);
 
       searchResultsDialog.dialog({
         title: 'Search results',

@@ -1,28 +1,33 @@
 <html>
   <head>
-    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/ui-lightness/jquery-ui.css" type="text/css" media="screen" title="no title">
-    <style>
-      .mobile-list {
-        list-style-type: none;
-        padding: 0;
-      }
-      .mobile-list li {
-        background-color: #D6D6D6;
-        height: 1.7em;
-        text-align: center;
-        font-weight: bold;
-        padding: 0.50em 0;
-      }
-      .mobile-list li img {
-        float: right;
-        padding: 0.0em 0.4em;
-      }
-    </style>
+    <title>Jade</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="jade.js"></script>
+    <script src="jquery.json-2.3.min.js"></script>
+    <script>
+    onload = function(){
+      var html = document.getElementById('pet-template').innerHTML;
+      var fn = jade.compile(html);
+      var locals = { pet: { name: 'Tobi', species: 'Ferret', age: 2, siblings: ['Loki', 'Jane'] }};
+      var html = fn(locals);
+      document.getElementById('pets').innerHTML = html;
+
+      console.log( $.toJSON( { "blah":"blah" } ) );
+    };
+    </script>
   </head>
   <body>
-    <ul class="mobile-list ui-widget">
-      <li class="ui-widget-content">item 1<img src="arrow.png"></img></li>
-      <li class="ui-widget-content">item 2<img src="arrow.png"></img></li>
-      <li class="ui-widget-content">item 3<img src="arrow.png"></img></li>
+    <table id="pets"></table>
+
+    <script id="pet-template" type="text/template">
+tbody
+  tr.pet
+    td.name= pet.name
+    td.description is a #{pet.age} year old #{pet.species}
+    td.siblings and has sibling(s)
+      ul
+        each sibling in pet.siblings
+          li= sibling
+    </script>
   </body>
 </html>
