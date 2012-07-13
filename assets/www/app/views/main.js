@@ -68,7 +68,7 @@ marina.views.main = function() {
       console.log('searching for: ' + $('#search-criteria').val());
       var filtered = marina.marinas.filterBy($('#search-criteria').val());
 
-      searchResultsDialog = $('<div></div>');
+      searchResultsDialog = retrieveTemplate('#dialog');
       var searchResultsList = retrieveTemplate('#mobile-list');
       $.each(filtered, function(index, marina) {
         console.log(marina.name);
