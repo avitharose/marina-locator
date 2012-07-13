@@ -60,7 +60,7 @@ marina.views.main = function() {
     };
 
     var buildTemplate = function(selector, locals) {
-      var template = document.getElementById(selector).innerHTML;
+      var template = $(selector).html();
       console.log('template: ' + template);
       var fn = jade.compile(template);
       var html = fn(locals);
@@ -74,7 +74,7 @@ marina.views.main = function() {
       var filtered = marina.marinas.filterBy($.trim($('#search-criteria').val()));
       filtered.trim = trim;
 
-      searchResultsDialog = buildTemplate('search-results-template', { marinas: filtered });
+      searchResultsDialog = buildTemplate('#search-results-template', { marinas: filtered });
       
       $.each(filtered, function(index, marina) {
         var button = searchResultsDialog.find('#marina' + index);
