@@ -54,16 +54,5 @@
         img(id="marina#{cnt}", data-button="centerMapAt", src="images/arrow.png")
     </script>
     <div id="dialog" class="hidden"><div></div></div>
-    <div id="mobile-list" class="hidden">
-      <ul class="mobile-list ui-widget"></ul>
-    </div>
-    <div id="search-result-items" class="hidden">
-      <% _.each(marinas, function(marina) { %>
-        <li class="ui-widget-content">
-          <% trim(marina.name); %>
-          <img id="show-on-map" data-button-param="<% JSON.stringify(marina); %>" src="images/arrow.png"></img>
-        </li>
-      <% }); %>
-    </div>
   </body>
 </html>
