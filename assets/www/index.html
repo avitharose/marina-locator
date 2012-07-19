@@ -54,6 +54,19 @@
       li.ui-widget-content= marinas.trim(marina.name)
         img(id="marina#{cnt}", data-button="centerMapAt", src="images/arrow.png")
     </script>
+    <script id="place-detail-template" type="text/template">
+#details
+  h3 #{place.name}
+  div
+    h2 Rating
+    img(alt="#{place.rating}", src="images/ratings/#{place.rating}-stars.png")
+  div
+    h2 #{place.formatted_phone_number}
+  div
+    h2 #{place.formatted_address}
+  div
+    a(target="_blank", href='#{place.website}') Website
+    </script>
     <div id="dialog" class="hidden"><div></div></div>
   </body>
 </html>

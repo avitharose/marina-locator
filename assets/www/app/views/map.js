@@ -105,7 +105,7 @@ marina.googleMap = function(options) {
 	function displayInfoWindowFor(place, marker) {
 		createInfoBox({
 			marker: marker,
-			content: createDetailContent(place),
+			content: marina.template.build('#place-detail-template', { place: place }, true),
 			pixelOffset: new google.maps.Size( - 80, 0),
 			boxStyle: {
 				background: "url('images/tipbox-160.png') no-repeat",
