@@ -108,6 +108,7 @@ marina.views.main = function() {
     view.show = function() {
       console.log('disconnected');
       $('#map_canvas').html('No connection!');
+      marina.util.stopSpinner();
     };
     view.home = $.noop();
     view.search = connectedView.search;
