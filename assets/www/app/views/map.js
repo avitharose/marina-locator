@@ -20,19 +20,16 @@ marina.googleMap = function(options) {
 	};
 
 	function addMarinaMarker(marinaInfo) {
-		var marker, content;
+		var marker;
 		console.log('adding marker for ' + marinaInfo.name);
 		marker = new google.maps.Marker({
 			icon: 'images/red-anchor.png',
 			map: googleMap,
 			position: new google.maps.LatLng(marinaInfo.position.latitude, marinaInfo.position.longitude)
 		});
-		content = '<div id="details"><h3>' + marinaInfo.name + '</h3>';
-		content += marinaInfo.description;
-		content += '</div>';
 		google.maps.event.addListener(marker, 'click', function(event) {
 			createInfoBox({
-				content: content,
+				content: marina.template.build('#marina-info-template', { marinaInfo: marinaInfo }, true),
 				marker: marker
 			});
 		});
