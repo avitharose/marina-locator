@@ -54,7 +54,7 @@ html, body {
 .fill-remaining {
   display: block;
   overflow: hidden;
-  padding: 0 4px 0 6px;
+  padding: 4px 4px 0 6px;
 }
 
 #map-options {
