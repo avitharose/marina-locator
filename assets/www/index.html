@@ -61,7 +61,7 @@
     h2 Rating
     img(alt="#{place.rating}", src="images/ratings/#{place.rating}-stars.png")
   div
-    h2 #{place.formatted_phone_number}
+    a(href="tel:#{place.formatted_phone_number}") #{place.formatted_phone_number}
   div
     h2 #{place.formatted_address}
   div

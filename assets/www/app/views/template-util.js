@@ -3,10 +3,10 @@ marina.template = function() {
 
 	template.build = function(selector, locals, raw) {
 		var template = $(selector).html();
-		console.log('template: ' + template);
+		// console.log('template: ' + template);
 		var fn = jade.compile(template);
 		var html = fn(locals);
-		console.log('html: ' + html);
+		// console.log('html: ' + html);
     if (raw)
       return html;
 		return $(html);
