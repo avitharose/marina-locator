@@ -47,25 +47,6 @@ marina.googleMap = function(options) {
 		marina.util.stopSpinner();
 	};
 
-	function createDisplayFor(label, value) {
-		var content = '<div><h2>' + label + '</h2>';
-		content += util.displayValue(value) + '</div>';
-		return content;
-	}
-
-	function createDetailContent(place) {
-		var content = '<div id="details">';
-		content += '<h3>' + place.name + '</h3>';
-		content += '<div><h2>Rating</h2><img alt="' + place.rating + '" src="images/ratings/' + place.rating + '-stars.png"></img>';
-		content += createDisplayFor('Phone', place.formatted_phone_number);
-		content += createDisplayFor('Address', place.formatted_address);
-		if (place.website) {
-			content += '<div><a target="_blank" href=' + util.displayValue(place.website) + '>Website</a></div>';
-		}
-		content += '</div>';
-		return content;
-	}
-
 	function displayDetailOnClickFor(place, marker) {
 		google.maps.event.addListener(marker, 'click', function() {
 			var request = {
