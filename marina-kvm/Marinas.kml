@@ -502,7 +502,7 @@
   </Style>
   <Placemark>
     <name>Shilshole Bay Marina - Port of Seattle</name>
-    <description><![CDATA[<div><a href="http://www.portseattle.org/Marinas/Shilshole-Bay-Marina/Pages/default.aspx" style="font-size:small" target="_blank">Website</a></div><div><br>&nbsp;</div><b style="font-family:arial;font-size:10pt">Amenities</b><div><ul style="font-family:arial;font-size:10pt"><li><font face="arial" size="2">Electricity 30, 50 Amp</font></li><li><font face="arial" size="2">Restrooms</font></li><li><font face="arial" size="2">Showers</font></li><li><font face="arial" size="2">Fuel (gas, diesel)</font></li><li><font face="arial" size="2">Laundry</font></li></ul><div><font size="2"><br></font></div></div>]]></description>
+    <description><![CDATA[<div><a href="http://www.portseattle.org/Marinas/Shilshole-Bay-Marina/Pages/default.aspx" style="font-size:small" target="_blank">Website</a><br><a target="_blank">(206) 601 - 4089</a></div><div><br>&nbsp;</div><b style="font-family:arial;font-size:10pt">Amenities</b><div><ul style="font-family:arial;font-size:10pt"><li><font face="arial" size="2">Electricity 30, 50 Amp</font></li><li><font face="arial" size="2">Restrooms</font></li><li><font face="arial" size="2">Showers</font></li><li><font face="arial" size="2">Fuel (gas, diesel)</font></li><li><font face="arial" size="2">Laundry</font></li></ul><div><font size="2"><br></font></div></div>]]></description>
     <styleUrl>#style45</styleUrl>
     <Point>
       <coordinates>-122.404549,47.680763,0.000000</coordinates>
