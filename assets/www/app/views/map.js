@@ -107,9 +107,15 @@ marina.googleMap = function(options) {
 		markers[options.type] = [];
 		try {
 			var request = {
-				bounds: googleMap.getBounds(),
-				types: [options.type]
+				bounds: googleMap.getBounds()
 			};
+      if (options.type && options.type.indexOf('keyword') === -1) {
+        request.types = [options.type];
+      }
+      if (options.keyword) {
+        console.log('keyword: ' + options.keyword);
+        request.keyword = options.keyword;
+      }
 			var service = new google.maps.places.PlacesService(googleMap);
 			service.search(request, function(results, status) {
 				var marker;
@@ -139,12 +145,15 @@ marina.googleMap = function(options) {
 			marina.util.startSpinner();
 			$(this).multiselect('close');
 			var searchType = ui.value;
-			var image = $(this).find('option[value="' + searchType + '"]').data('image');
+      var option = $(this).find('option[value="' + searchType + '"]');
+      var keyword = option.data('keyword');
+			var image = option.data('image');
 			console.log('image for search: ' + image);
 			console.log('mulit select click: ' + searchType);
 			if (ui.checked) {
 				searchFor({
 					type: searchType,
+          keyword: keyword,
 					image: image
 				});
 			} else {
