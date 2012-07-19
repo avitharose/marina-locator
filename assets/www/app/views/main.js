@@ -59,17 +59,8 @@ marina.views.main = function() {
       return value.substring(0, 20) + '...';
     };
 
-    var buildTemplate = function(selector, locals) {
-      var template = $(selector).html();
-      console.log('template: ' + template);
-      var fn = jade.compile(template);
-      var html = fn(locals);
-      console.log('html: ' + html);
-      return $(html);
-    };
-
     var showSearchResults = function(filtered) {
-      searchResultsDialog = buildTemplate('#search-results-template', { marinas: filtered });
+      searchResultsDialog = marina.template.build('#search-results-template', { marinas: filtered });
       $.each(filtered, function(index, marina) {
         var button = searchResultsDialog.find('#marina' + index);
         button.data('button-param', marina);
