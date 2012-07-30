@@ -1,3 +1,0 @@
-describe('marina filter', function() {
-
-});
